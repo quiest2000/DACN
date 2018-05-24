@@ -1,2 +1,2 @@
 # DACN
-[XamarinForms] Đồ án chuyên ngàng phần mềm
+[XamarinForms] Đồ án chuyên ngành phần mềm
