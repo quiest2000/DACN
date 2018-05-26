@@ -132,14 +132,6 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FreshMvvm">
-      <Version>2.2.4</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms">
-      <Version>3.0.0.482510</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\HReception.Logic\HReception.Logic.csproj">
       <Project>{8E39B5E6-6054-44ED-A6E1-300FE2074E7B}</Project>
       <Name>HReception.Logic</Name>
