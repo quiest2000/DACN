@@ -12,3 +12,5 @@ HReception.iOS/obj
 HReception.Logic/obj
 HReception/obj
 HReception.UI/obj
+HReception.Core/obj
+*.user
