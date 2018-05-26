@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.446417" />
+    <PackageReference Include="FreshMvvm" Version="2.2.4" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.5.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Views\ItemDetailPage.xaml" />
+    <EmbeddedResource Remove="Views\ItemsPage.xaml" />
+    <EmbeddedResource Remove="Views\MainPage.xaml" />
+    <EmbeddedResource Remove="Views\NewItemPage.xaml" />
+    <EmbeddedResource Remove="GUIAppearance\Themes\MyPage.xaml" />
+    <EmbeddedResource Remove="GUIAppearance\Values\Colors.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Views\AboutPage.xaml.cs" />
+    <Compile Remove="Views\ItemDetailPage.xaml.cs" />
+    <Compile Remove="Views\ItemsPage.xaml.cs" />
+    <Compile Remove="Views\MainPage.xaml.cs" />
+    <Compile Remove="Views\NewItemPage.xaml.cs" />
+    <Compile Remove="ViewModels\AboutViewModel.cs" />
+    <Compile Remove="GUIAppearance\Themes\Resources.Designer.cs" />
+    <Compile Remove="GUIAppearance\Themes\MyPage.xaml.cs" />
+    <Compile Remove="GUIAppearance\Themes\DefaultTheme.xaml.cs" />
+    <Compile Remove="GUIAppearance\Styles\DefinedStyles.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="GUIAppearance\" />
+    <Folder Include="GUIAppearance\Themes\" />
+    <Folder Include="GUIAppearance\Styles\" />
+    <Folder Include="Utils\" />
+    <Folder Include="Utils\Converters\" />
+    <Folder Include="Utils\Behaviors\" />
+    <Folder Include="Utils\Controls\" />
+    <Folder Include="Utils\Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HReception.Logic\HReception.Logic.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="GUIAppearance\Themes\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

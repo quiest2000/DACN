@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
+using HReception.UI;
 using UIKit;
 
 namespace HReception.iOS
@@ -23,7 +20,7 @@ namespace HReception.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new HReception.UI.App());
 
             return base.FinishedLaunching(app, options);
         }

@@ -1,10 +1,9 @@
-﻿using System;
-using Xamarin.Forms;
-using HReception.Views;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using HReception.UI.Infrastructure;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace HReception
+namespace HReception.UI
 {
     public partial class App : Application
     {
@@ -12,24 +11,13 @@ namespace HReception
         public App()
         {
             InitializeComponent();
+            Bootstrap.Register();
 
-
-            MainPage = new MainPage();
-        }
-
-        protected override void OnStart()
-        {
-            // Handle when your app starts
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
+            //todo: load main page
+            MainPage = new ContentPage()
+            {
+                Content = new Label() { Text = "Hello HReception", HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, BackgroundColor=Color.Blue}
+            };
+        }      
     }
 }

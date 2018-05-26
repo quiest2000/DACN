@@ -3,3 +3,8 @@
 .vs/HReception/xs/sqlite3/storage.ide-shm
 .vs/HReception/xs/sqlite3/storage.ide-wal
 .vs/HReception/xs/UserPrefs.xml
+_BundleResourceWithLogicalName.items
+_PartialAppManifest.items
+*g.cs
+*/bin/*
+UserPrefs.xml
