@@ -1,6 +1,9 @@
 ﻿using Foundation;
 using HReception.UI;
 using UIKit;
+using FreshMvvm;
+using HReception.Core.Context.Infrastructure;
+using HReception.iOS.Services;
 
 namespace HReception.iOS
 {
@@ -19,9 +22,15 @@ namespace HReception.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            SQLitePCL.Batteries_V2.Init();
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new HReception.UI.App());
+            PlatformDependencyRegistrar();
+            LoadApplication(new App());
             return base.FinishedLaunching(app, options);
+        }
+        private void PlatformDependencyRegistrar()
+        {
+            FreshIOC.Container.Register<IDbHelper, DbHelper>();
         }
     }
 }
