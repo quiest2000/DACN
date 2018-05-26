@@ -21,7 +21,6 @@ namespace HReception.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new HReception.UI.App());
-
             return base.FinishedLaunching(app, options);
         }
     }

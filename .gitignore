@@ -8,3 +8,7 @@ _PartialAppManifest.items
 *g.cs
 */bin/*
 UserPrefs.xml
+HReception.iOS/obj
+HReception.Logic/obj
+HReception/obj
+HReception.UI/obj

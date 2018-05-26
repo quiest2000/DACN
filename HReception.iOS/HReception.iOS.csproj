@@ -137,13 +137,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HReception\HReception.UI.csproj">
-      <Project>{5DE9C92E-A6D9-451D-A96D-D9809E5CCFDD}</Project>
-      <Name>HReception.UI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HReception.Logic\HReception.Logic.csproj">
       <Project>{8E39B5E6-6054-44ED-A6E1-300FE2074E7B}</Project>
       <Name>HReception.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HReception.UI\HReception.UI.csproj">
+      <Project>{5DE9C92E-A6D9-451D-A96D-D9809E5CCFDD}</Project>
+      <Name>HReception.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
