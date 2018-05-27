@@ -8,7 +8,6 @@ namespace Client.UI.Infrastructure.Context
     public class SimulatorContext : DbContext
     {
         private static string _dbPath = null;
-        private static bool _isDbFileCreated = false;
 
         private SimulatorContext()
         {
@@ -18,13 +17,17 @@ namespace Client.UI.Infrastructure.Context
 
         public static SimulatorContext CreateContext()
         {
-            var helper = FreshIOC.Container.Resolve<IDbHelper>();
-            _dbPath = helper.GetDbPath();
-            _isDbFileCreated = helper.IsDbFileCreated();
+            var notSeekYet = false;
+            if (string.IsNullOrEmpty(_dbPath))
+            {
+                var helper = FreshIOC.Container.Resolve<IDbHelper>();
+                _dbPath = helper.GetDbPath();
+                notSeekYet = true;
+            }
+
             var context = new SimulatorContext();
-            if (_isDbFileCreated)
-                return context;
-            SeekData(context);
+            if (notSeekYet)
+                SeekData(context);
             return context;
         }
 
