@@ -1,17 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Class1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Infrastructure\Bases" />
     <Folder Include="Services\" />
     <Folder Include="Services\Implementations\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Services\MockImplementations\" />
+    <Folder Include="Constants\" />
+    <Folder Include="Infrastructure\Bases\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HReception.Core\HReception.Core.csproj" />

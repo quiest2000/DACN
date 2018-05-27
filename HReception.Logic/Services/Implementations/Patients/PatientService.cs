@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Client.UI.Infrastructure.Context;
 using HReception.Core;
-using HReception.Core.Context.EfModels;
+using HReception.Logic.Context;
+using HReception.Logic.Context.EfModels;
 using HReception.Logic.Services.Interfaces.Common;
 using HReception.Logic.Services.Interfaces.Patients;
 using HReception.Logic.Utils.Extensions;
@@ -24,7 +24,7 @@ namespace HReception.Logic.Services.Implementations.Patients
         public async Task<UpdatePatientResponse> Update(UpdatePatientRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
-            using (var context = SimulatorContext.CreateContext())
+            using (var context = SimulatorContext.Create())
             {
                 var patient = await context.Patients.FirstOrDefaultAsync(aa => aa.PatientCode == request.PatientCode);
                 if (patient == null)
@@ -43,7 +43,7 @@ namespace HReception.Logic.Services.Implementations.Patients
             if (patientDtos.Any())
                 return new NewPatientReponse { Result = NewPatientResults.Existed };
 
-            using (var context = SimulatorContext.CreateContext())
+            using (var context = SimulatorContext.Create())
             {
                 var patient = request.MapTo<Patient>();
                 patient.PatientCode = _generator.Next<Patient>();
@@ -56,7 +56,7 @@ namespace HReception.Logic.Services.Implementations.Patients
         public Task<IList<PatientDto>> Find(string patientCode)
         {
             var tcs = new TaskCompletionSource<IList<PatientDto>>();
-            using (var context = SimulatorContext.CreateContext())
+            using (var context = SimulatorContext.Create())
             {
                 var condition = patientCode.IsNullOrEmpty() ? string.Empty : patientCode;
                 var patients = context.Patients.AsNoTracking().Where(aa => condition == "" || (aa.PatientCode != null && aa.PatientCode.Contains(condition))).ToList();
@@ -79,7 +79,7 @@ namespace HReception.Logic.Services.Implementations.Patients
                 throw new ArgumentNullException(nameof(patientCode));
 
             var patient =
-                SimulatorContext.CreateContext()
+                SimulatorContext.Create()
                     .Patients.AsNoTracking()
                     .FirstOrDefault(aa => aa.PatientCode == patientCode);
             return patient == null
@@ -89,7 +89,7 @@ namespace HReception.Logic.Services.Implementations.Patients
 
         public async Task<bool> Delete(string patientCode)
         {
-            using (var context=SimulatorContext.CreateContext())
+            using (var context=SimulatorContext.Create())
             {
                 var patient = await context.Patients.FirstOrDefaultAsync(aa => aa.PatientCode == patientCode);
                 if (patient == null) return true;

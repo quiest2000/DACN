@@ -1,4 +1,4 @@
-﻿namespace HReception.Core.Context.Enum
+﻿namespace HReception.Logic.Context.Enum
 {
     public enum TransactionStatus
     {

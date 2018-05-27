@@ -1,18 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="Context\SimulatorContext.cs" />
     <Compile Remove="Context\StorageAccess\IFileService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Context\" />
-    <Folder Include="Context\" />
-    <Folder Include="Context\Infrastructure\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.3" />

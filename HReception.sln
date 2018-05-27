@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HReception.iOS", "HReception.iOS\HReception.iOS.csproj", "{179E3271-3123-4D49-939A-49BE35B43DE1}"
@@ -8,8 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Native", "Native", "{4FCE4777-796C-40F7-9D04-935DEC0A0672}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HReception.UI", "HReception.UI\HReception.UI.csproj", "{5DE9C92E-A6D9-451D-A96D-D9809E5CCFDD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HReception.Core", "HReception.Core\HReception.Core.csproj", "{3F559623-965C-4F31-8280-4D7834D932BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,18 +55,6 @@ Global
 		{5DE9C92E-A6D9-451D-A96D-D9809E5CCFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DE9C92E-A6D9-451D-A96D-D9809E5CCFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DE9C92E-A6D9-451D-A96D-D9809E5CCFDD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Release|iPhone.Build.0 = Release|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F559623-965C-4F31-8280-4D7834D932BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{179E3271-3123-4D49-939A-49BE35B43DE1} = {4FCE4777-796C-40F7-9D04-935DEC0A0672}

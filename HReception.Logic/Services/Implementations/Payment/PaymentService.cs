@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Client.UI.Infrastructure.Context;
 using HReception.Core;
-using HReception.Core.Context.EfModels;
-using HReception.Core.Context.Enum;
+using HReception.Logic.Context;
+using HReception.Logic.Context.EfModels;
+using HReception.Logic.Context.Enum;
 using HReception.Logic.Services.Interfaces.Payment;
 using HReception.Logic.Utils.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +17,7 @@ namespace HReception.Logic.Services.Implementations.Payment
         public NewTransactionReponse CreateTransaction(NewTransactionRequest request)
         {
             var now = DateTime.Now;
-            using (var context = SimulatorContext.CreateContext())
+            using (var context = SimulatorContext.Create())
             {
                 using (var scope = new System.Transactions.TransactionScope())
                 {
@@ -54,7 +54,7 @@ namespace HReception.Logic.Services.Implementations.Payment
         {
             fromDate = fromDate <= DateTime.MinValue ? DateTime.Today : fromDate;
             toDate = toDate <= DateTime.MinValue ? DateTime.Today.AddDays(1) : toDate;
-            using (var context = SimulatorContext.CreateContext())
+            using (var context = SimulatorContext.Create())
             {
                 var results = await context.Transactions.Include(aa => aa.Patient).Include(aa => aa.Details)
                     .Where(aa => aa.Date >= fromDate && aa.Date < toDate
@@ -98,7 +98,7 @@ namespace HReception.Logic.Services.Implementations.Payment
 
         public async Task<IList<TransactionDetailDto>> GetDetails(int transactionId)
         {
-            using (var context = SimulatorContext.CreateContext())
+            using (var context = SimulatorContext.Create())
             {
                 var details = await context.TransactionDetails.AsNoTracking().Include(aa => aa.Item).Where(aa => aa.TransactionId == transactionId).Select(aa =>
                         new TransactionDetailDto
@@ -119,7 +119,7 @@ namespace HReception.Logic.Services.Implementations.Payment
         public IList<ItemReponse> GetAllItems()
         {
             var rs = new List<ItemReponse>();
-            using (var context = SimulatorContext.CreateContext())
+            using (var context = SimulatorContext.Create())
             {
                 rs = context.Items.Select(aa => new ItemReponse
                 {

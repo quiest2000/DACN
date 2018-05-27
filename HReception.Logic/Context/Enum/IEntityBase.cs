@@ -1,4 +1,4 @@
-﻿namespace Client.UI.Infrastructure.Context.Enum
+﻿namespace HReception.Logic.Context.Enum
 {
     public interface IEntityBase
     {

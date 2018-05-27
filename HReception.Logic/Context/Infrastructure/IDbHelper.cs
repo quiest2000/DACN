@@ -1,5 +1,4 @@
-﻿using System;
-namespace HReception.Core.Context.Infrastructure
+﻿namespace HReception.Logic.Context.Infrastructure
 {
     public interface IDbHelper
     {

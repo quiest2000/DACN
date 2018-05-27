@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using HReception.Logic.Infrastructure.Bases;
 using HReception.Logic.Services.Interfaces.Patients;
 using HReception.Logic.Utils.Extensions;
 using Xamarin.Forms;
 
-namespace HReception.UI.ViewModels.Common
+namespace HReception.UI.PageModels.Common
 {
-    public class HomeViewModel : ViewModelBase
+    public class HomePageModel : PageModelBase
     {
         private readonly IPatientService _patientService;
         private IList<PatientDto> _allPatients;
 
-        public HomeViewModel(IPatientService patientService)
+        public HomePageModel(IPatientService patientService)
         {
             _patientService = patientService;
         }

@@ -1,5 +1,5 @@
-﻿using Client.UI.Infrastructure.Context.Enum;
-using HReception.Core.Context.Enum;
+﻿using HReception.Logic.Context.Enum;
+using HReception.Logic.Context;
 
 namespace HReception.Logic.Services.Interfaces.Common
 {

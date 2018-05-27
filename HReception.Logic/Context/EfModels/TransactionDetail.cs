@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Client.UI.Infrastructure.Context;
-using Client.UI.Infrastructure.Context.Enum;
+using HReception.Logic.Context.Enum;
 
-namespace HReception.Core.Context.EfModels
+namespace HReception.Logic.Context.EfModels
 {
     public class TransactionDetail: IEntityBase
     {

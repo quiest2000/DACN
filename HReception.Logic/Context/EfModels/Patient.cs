@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Client.UI.Infrastructure.Context;
-using Client.UI.Infrastructure.Context.Enum;
+using HReception.Logic.Context.Enum;
 
-namespace HReception.Core.Context.EfModels
+namespace HReception.Logic.Context.EfModels
 {
     public class Patient : IEntityBase
     {

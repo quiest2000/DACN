@@ -2,8 +2,8 @@
 using HReception.UI;
 using UIKit;
 using FreshMvvm;
-using HReception.Core.Context.Infrastructure;
 using HReception.iOS.Services;
+using HReception.Logic.Context.Infrastructure;
 
 namespace HReception.iOS
 {

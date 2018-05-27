@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Client.UI.Infrastructure.Context;
-using Client.UI.Infrastructure.Context.Enum;
-using HReception.Core;
-using HReception.Core.Context.Enum;
+using HReception.Logic.Context;
+using HReception.Logic.Context.Enum;
 using HReception.Logic.Services.Interfaces.Common;
 
 namespace HReception.Logic.Services.Implementations.Common
@@ -12,7 +10,7 @@ namespace HReception.Logic.Services.Implementations.Common
     {
         public string Next<T>() where T : IEntityBase
         {
-            using (var context = SimulatorContext.CreateContext())
+            using (var context = SimulatorContext.Create())
             {
                 var name = typeof(T).FullName;
                 var gencode = context.Gencodes.FirstOrDefault(aa => aa.EntityTypeFullName == name);

@@ -1,9 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="FreshMvvm" Version="2.2.4" />
     <PackageReference Include="PropertyChanged.Fody" Version="2.5.6" />
@@ -30,9 +28,8 @@
     <Compile Remove="GUIAppearance\Styles\DefinedStyles.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <Folder Include="Pages" />
     <Folder Include="Models\" />
-    <Folder Include="Views\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="GUIAppearance\" />
     <Folder Include="GUIAppearance\Themes\" />

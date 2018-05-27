@@ -3,8 +3,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Client.UI.Infrastructure.Context;
 using HReception.Core;
+using HReception.Logic.Context;
 using HReception.Logic.Services.Interfaces.Common;
 using HReception.Logic.Utils.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +36,7 @@ namespace HReception.Logic.Services.Implementations.Common
 
         public async Task<LoginResultDto> Login(string userName, string password)
         {
-            using (var context = SimulatorContext.CreateContext())
+            using (var context = SimulatorContext.Create())
             {
                 var user = await context.Users.FirstOrDefaultAsync(aa => aa.UserName == userName);
                 if (user is null || !user.IsActive)
