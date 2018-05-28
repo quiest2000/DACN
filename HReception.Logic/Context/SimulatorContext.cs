@@ -8,6 +8,7 @@ using HReception.Logic.Utils.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using System;
 
 namespace HReception.Logic.Context
 {
@@ -15,6 +16,7 @@ namespace HReception.Logic.Context
     {
         private const string DataInstalledKey = "SimulatorContext.DataInstalledKey";
         private static string _dbPath = null;
+        private static readonly object _lockObj = new object();
         private SimulatorContext()
         {
             Database.EnsureCreated();
@@ -30,7 +32,23 @@ namespace HReception.Logic.Context
             }
 
             var context = new SimulatorContext();
-            EnsureDataInstalled(context);
+            var installed = false;
+            lock (_lockObj)
+            {
+                installed = Application.Current.Properties.ContainsKey(DataInstalledKey);
+            }
+
+            if (!installed)
+            {
+                lock (_lockObj)
+                {
+                    Application.Current.Properties.Add(DataInstalledKey, true);
+                    Application.Current.SavePropertiesAsync();
+                }
+
+                EnsureDataInstalled(context);
+            }
+
             return context;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -54,13 +72,6 @@ namespace HReception.Logic.Context
 
         static void EnsureDataInstalled(SimulatorContext context)
         {
-            var installed = Application.Current.Properties.ContainsKey(DataInstalledKey);
-            if (installed)
-                return;
-
-            Application.Current.Properties.Add(DataInstalledKey, true); ;
-            Task.Run(async () => await Application.Current.SavePropertiesAsync());
-
             context.Gencodes.AddRange(new[]
             {
                         new Gencode
@@ -87,7 +98,7 @@ namespace HReception.Logic.Context
                         {
                             PatientCode = generator.Next<Patient>(),
                             FullName = "Triệu Thanh Thanh",
-                            DoB = "01/09/1993",
+                            DoB =new DateTime(1993,9,1),
                             Email = "thanhtrieu93@gmail.com",
                             FullAddress = "0901. IndoChina Park, 04, Nguyen Dinh Chieu, Dakao, Q1, HCMC",
                             Gender = "Nữ",
@@ -97,13 +108,13 @@ namespace HReception.Logic.Context
                         {
                             PatientCode = generator.Next<Patient>(),
                             FullName = "Trần Mỹ Hoa",
-                            DoB = "07/12/1991",
+                    DoB =new DateTime(1995,2,15),
                             Email = "myhoa93@gmail.com",
                             FullAddress = "480, Xo Viet Nghe Tinh, Binh Thanh, HCMC",
                             Gender = "Nữ",
                             Phone = "09194565545",
                         }
-                    };
+            };
             context.Patients.AddRange(patients);
             //items
             var items = new List<Item>

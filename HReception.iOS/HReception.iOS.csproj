@@ -126,6 +126,7 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\more50.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -218,6 +219,9 @@
     </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore.Sqlite">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.Sqlite.Core.2.0.3\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\netstandard1.3\AutoMapper.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

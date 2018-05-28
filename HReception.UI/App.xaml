@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HReception.UI.App">
     <Application.Resources>
-        <ResourceDictionary Source="GUIAppearance/Themes/DefaultTheme.xaml" />
-        <ResourceDictionary Source="GUIAppearance/Styles/DefinedStyles.xaml" />
+        <!--values-->
+        <Color x:Key="NavigationPrimary">#2196F3</Color>
+        <Color x:Key="HightlightPrimary">#7c0c0c</Color>
+        <!--globale styles-->
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+            <Setter Property="BarTextColor" Value="White" />
+        </Style>
+        <!--<Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource HightlightPrimary}" />
+        </Style>-->
+        <!--spec styles-->
     </Application.Resources>
 </Application>

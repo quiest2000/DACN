@@ -20,11 +20,26 @@ namespace HReception.UI.PageModels.Common
         }
 
         #region Overrides
+        public override void Init(object initData)
+        {
+            CurrentPage.Title = "DS bệnh nhân";
+
+            base.Init(initData);
+        }
+        public override async void ReverseInit(object returnedData)
+        {
+            var dataChanged = returnedData as bool?;
+            if (dataChanged.HasValue && dataChanged.Value)
+            {
+                await GetAllPatients();
+                SelectedPatient = Patients.FirstOrDefault();
+            }
+            base.ReverseInit(returnedData);
+        }
         protected override async void ViewIsAppearing(object sender, EventArgs e)
         {
             await GetAllPatients();
             SelectedPatient = Patients.FirstOrDefault();
-            base.ViewIsAppearing(sender, e);
             base.ViewIsAppearing(sender, e);
         }
 
@@ -36,27 +51,29 @@ namespace HReception.UI.PageModels.Common
         #endregion
 
         #region Properties
+        string _searchPatientCode;
 
-        public DateTime Dob { get; set; }
-        public string SearchPatientCode { get; set; }
-        public bool EditMode { get; set; }
-        public bool IsAddNew { get; set; }
+        public string SearchPatientCode
+        {
+            get => _searchPatientCode;
+
+            set
+            {
+                _searchPatientCode = value;
+                if (value.IsNullOrEmpty())
+                    SearchCommand.Execute(null);
+            }
+        }
+
         public List<PatientDto> Patients { get; set; }
         private PatientDto _selectedPatient;
 
         public PatientDto SelectedPatient
         {
             get => _selectedPatient;
-            set
-            {
-                _selectedPatient = value;
-                if (!EditMode)
-                    CurrentPatient = new PatientDto(value);
-            }
+            set => _selectedPatient = value;
         }
 
-        public PatientDto CurrentPatient { get; set; }
-        public IList<string> Genders => new List<string> { "Nam", "Nữ" };
 
         #endregion
 
@@ -75,7 +92,7 @@ namespace HReception.UI.PageModels.Common
 
         private bool CanExecuteSearchCommand()
         {
-            return !EditMode;
+            return true;
         }
 
         /// <summary>
@@ -90,22 +107,17 @@ namespace HReception.UI.PageModels.Common
 
         #endregion
 
-        #region AssignmentCommand
+        #region ViewPatientDetailCommand
 
-        private ICommand _AssignmentCommand;
+        private ICommand _ViewPatientDetailCommand;
 
-        public ICommand AssignmentCommand => _AssignmentCommand ?? (_AssignmentCommand = new Command(async () => { await AssignmentCommandExecute(); }, CanExecuteAssignmentCommand));
+        public ICommand ViewPatientDetailCommand => _ViewPatientDetailCommand ?? (_ViewPatientDetailCommand = new Command<PatientDto>(async arg => await ViewPatientDetailCommandExecute(arg)));
 
-        private bool CanExecuteAssignmentCommand()
+        private async Task ViewPatientDetailCommandExecute(PatientDto arg)
         {
-            return SelectedPatient != null;
-        }
-
-        private async Task AssignmentCommandExecute()
-        {
-            //var view = ServiceLocator.Default.ResolveType<AssignmentViewModel>();
-            //view.Patient = SelectedPatient;
-            //_uiCompositionService.Activate(view, DefinedRegions.MainContent);
+            if (arg is null)
+                return;
+            await CoreMethods.PushPageModel<PatientDetailPageModel>(arg);
         }
 
         #endregion

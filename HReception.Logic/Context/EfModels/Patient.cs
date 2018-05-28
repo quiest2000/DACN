@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using HReception.Logic.Context.Enum;
+using System;
 
 namespace HReception.Logic.Context.EfModels
 {
@@ -28,6 +29,6 @@ namespace HReception.Logic.Context.EfModels
         /// <summary>
         /// Ngày sinh
         /// </summary>
-        public string DoB { get; set; }
+        public DateTime DoB { get; set; }
     }
 }
