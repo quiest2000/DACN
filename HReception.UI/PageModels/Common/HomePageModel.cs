@@ -20,11 +20,26 @@ namespace HReception.UI.PageModels.Common
         }
 
         #region Overrides
+        public override void Init(object initData)
+        {
+            CurrentPage.Title = "DS bệnh nhân";
+
+            base.Init(initData);
+        }
+        public override async void ReverseInit(object returnedData)
+        {
+            var dataChanged = returnedData as bool?;
+            if (dataChanged.HasValue && dataChanged.Value)
+            {
+                await GetAllPatients();
+                SelectedPatient = Patients.FirstOrDefault();
+            }
+            base.ReverseInit(returnedData);
+        }
         protected override async void ViewIsAppearing(object sender, EventArgs e)
         {
             await GetAllPatients();
             SelectedPatient = Patients.FirstOrDefault();
-            base.ViewIsAppearing(sender, e);
             base.ViewIsAppearing(sender, e);
         }
 

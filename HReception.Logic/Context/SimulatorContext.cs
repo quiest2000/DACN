@@ -8,6 +8,7 @@ using HReception.Logic.Utils.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using System;
 
 namespace HReception.Logic.Context
 {
@@ -97,7 +98,7 @@ namespace HReception.Logic.Context
                         {
                             PatientCode = generator.Next<Patient>(),
                             FullName = "Triệu Thanh Thanh",
-                            DoB = "01/09/1993",
+                            DoB =new DateTime(1993,9,1),
                             Email = "thanhtrieu93@gmail.com",
                             FullAddress = "0901. IndoChina Park, 04, Nguyen Dinh Chieu, Dakao, Q1, HCMC",
                             Gender = "Nữ",
@@ -107,13 +108,13 @@ namespace HReception.Logic.Context
                         {
                             PatientCode = generator.Next<Patient>(),
                             FullName = "Trần Mỹ Hoa",
-                            DoB = "07/12/1991",
+                    DoB =new DateTime(1995,2,15),
                             Email = "myhoa93@gmail.com",
                             FullAddress = "480, Xo Viet Nghe Tinh, Binh Thanh, HCMC",
                             Gender = "Nữ",
                             Phone = "09194565545",
                         }
-                    };
+            };
             context.Patients.AddRange(patients);
             //items
             var items = new List<Item>

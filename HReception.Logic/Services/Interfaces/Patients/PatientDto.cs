@@ -1,4 +1,5 @@
 ﻿using HReception.Logic.Utils.Extensions;
+using System;
 
 namespace HReception.Logic.Services.Interfaces.Patients
 {
@@ -28,7 +29,7 @@ namespace HReception.Logic.Services.Interfaces.Patients
         /// <summary>
         /// Ngày sinh
         /// </summary>
-        public string DoB { get; set; }
+        public DateTime DoB { get; set; }
 
         public string SearchField { get; set; }
     }
