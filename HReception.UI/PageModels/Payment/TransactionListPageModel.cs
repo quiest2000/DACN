@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HReception.Logic.Services.Interfaces.Payment;
 using Xamarin.Forms;
+using FreshMvvm;
 
 namespace HReception.UI.PageModels.Payment
 {
@@ -17,12 +19,12 @@ namespace HReception.UI.PageModels.Payment
 
         #region overrides
 
-        protected override async void ViewIsAppearing(object sender, EventArgs e)
+        public override void Init(object initData)
         {
             FromDate = DateTime.Today;
             ToDate = DateTime.Now;
-            await OnSearchCommandExecute();
-            base.ViewIsAppearing(sender, e);
+            SearchCommand.Execute(null);
+            base.Init(initData);
         }
 
         #endregion
@@ -33,50 +35,25 @@ namespace HReception.UI.PageModels.Payment
         public string SearchId { get; set; }
         public string PatientCode { get; set; }
         public List<TransactionReponse> Transactions { get; set; }
-        public TransactionReponse SelectedTransaction { get; set; }
         #endregion
 
         #region Commands
-
         #region ViewDetailCommand
-        private ICommand _viewDetailCommand;
-        /// <summary>
-        /// Gets the ViewDetailCommand command.
-        /// </summary>
-        public ICommand ViewDetailCommand => _viewDetailCommand ?? (_viewDetailCommand = new Command(async () => { await ViewDetailCommandExecute(); }, CanExecuteViewDetailCommand));
 
-        private bool CanExecuteViewDetailCommand()
+        private ICommand _ViewDetailCommand;
+
+        public ICommand ViewDetailCommand => _ViewDetailCommand ?? (_ViewDetailCommand = new Command<TransactionReponse>(async (arg) => { await ViewDetailCommandExecute(arg); }));
+
+        private async Task ViewDetailCommandExecute(TransactionReponse arg)
         {
-            return SelectedTransaction != null;
+            if (arg == null)
+                return;
+
+            var details = await _paymentService.GetDetails(arg.Id);
+            arg.Details = details;
+            await CoreMethods.PushPageModel<TransactionDetailPageModel>(arg);
         }
 
-        /// <summary>
-        /// Method to invoke when the command ViewDetailCommand is executed.
-        /// </summary>
-        private async Task ViewDetailCommandExecute()
-        {
-            //var vm = ServiceLocator.Default.ResolveType<TransactionDetailViewModel>();
-            //vm.Transaction = SelectedTransaction;
-            //vm.Details = await _paymentService.GetDetails(SelectedTransaction.Id);
-            //await _uiVisualizerService.ShowAsync(vm);
-        }
-        #endregion
-
-
-        #region BackCommand
-        private ICommand _backCommand;
-        /// <summary>
-        /// Gets the BackCommand command.
-        /// </summary>
-        public ICommand BackCommand => _backCommand ?? (_backCommand = new Command(async () => { await OnBackCommandExecute(); }));
-
-        /// <summary>
-        /// Method to invoke when the BackCommand command is executed.
-        /// </summary>
-        private async Task OnBackCommandExecute()
-        {
-            //_uiCompositionService.Activate<HomeViewModel>(DefinedRegions.MainContent);
-        }
         #endregion
 
         #region SearchCommand
@@ -91,12 +68,18 @@ namespace HReception.UI.PageModels.Payment
         /// </summary>
         private async Task OnSearchCommandExecute()
         {
-            //_pleaseWaitService.Show();
-            //int.TryParse(SearchId, out var id);
-            //var trans = await _paymentService.GetTransactions(FromDate, ToDate, id, PatientCode ?? string.Empty);
-            //Transactions = trans.ToList();
-            //SelectedTransaction = Transactions.FirstOrDefault();
-            //_pleaseWaitService.Hide();
+            try
+            {
+                IsBusy = true;
+                int.TryParse(SearchId, out var id);
+                var trans = await _paymentService.GetTransactions(FromDate, ToDate, id, PatientCode ?? string.Empty);
+                Transactions = trans.ToList();
+                IsBusy = false;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
         #endregion
 

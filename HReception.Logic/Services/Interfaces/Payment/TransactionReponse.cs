@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HReception.Logic.Services.Interfaces.Payment
 {
     public class TransactionReponse
     {
+        public TransactionReponse()
+        {
+            Details = new List<TransactionDetailDto>();
+        }
         /// <summary>
         /// Mã giao dịch của HIS  
         /// </summary>
@@ -47,5 +52,6 @@ namespace HReception.Logic.Services.Interfaces.Payment
         public int StatusId { get; set; }
 
         public string StatusName { get; set; }
+        public IList<TransactionDetailDto> Details { get; set; }
     }
 }

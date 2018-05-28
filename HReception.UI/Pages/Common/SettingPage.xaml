@@ -1,5 +1,16 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HReception.UI.Pages.Common.SettingPage">
     <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" HorizontalOptions="Center" Text="{Binding CurrentUser.DisplayName}" FontAttributes="Bold" Margin="5" />
+            <Button Grid.Row="1" HorizontalOptions="Center" Text="Đăng xuất" Margin="5" Command="{Binding LogoutCommand}" />
+            <Label Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" Margin="5" FontAttributes="Italic" Text="Phần mềm quản lý tiếp nhận và đăng ký dịch vụ" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
