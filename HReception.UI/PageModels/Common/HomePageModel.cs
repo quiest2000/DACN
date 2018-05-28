@@ -36,27 +36,29 @@ namespace HReception.UI.PageModels.Common
         #endregion
 
         #region Properties
+        string _searchPatientCode;
 
-        public DateTime Dob { get; set; }
-        public string SearchPatientCode { get; set; }
-        public bool EditMode { get; set; }
-        public bool IsAddNew { get; set; }
+        public string SearchPatientCode
+        {
+            get => _searchPatientCode;
+
+            set
+            {
+                _searchPatientCode = value;
+                if (value.IsNullOrEmpty())
+                    SearchCommand.Execute(null);
+            }
+        }
+
         public List<PatientDto> Patients { get; set; }
         private PatientDto _selectedPatient;
 
         public PatientDto SelectedPatient
         {
             get => _selectedPatient;
-            set
-            {
-                _selectedPatient = value;
-                if (!EditMode)
-                    CurrentPatient = new PatientDto(value);
-            }
+            set => _selectedPatient = value;
         }
 
-        public PatientDto CurrentPatient { get; set; }
-        public IList<string> Genders => new List<string> { "Nam", "Nữ" };
 
         #endregion
 
@@ -75,7 +77,7 @@ namespace HReception.UI.PageModels.Common
 
         private bool CanExecuteSearchCommand()
         {
-            return !EditMode;
+            return true;
         }
 
         /// <summary>
@@ -90,22 +92,17 @@ namespace HReception.UI.PageModels.Common
 
         #endregion
 
-        #region AssignmentCommand
+        #region ViewPatientDetailCommand
 
-        private ICommand _AssignmentCommand;
+        private ICommand _ViewPatientDetailCommand;
 
-        public ICommand AssignmentCommand => _AssignmentCommand ?? (_AssignmentCommand = new Command(async () => { await AssignmentCommandExecute(); }, CanExecuteAssignmentCommand));
+        public ICommand ViewPatientDetailCommand => _ViewPatientDetailCommand ?? (_ViewPatientDetailCommand = new Command<PatientDto>(async arg => await ViewPatientDetailCommandExecute(arg)));
 
-        private bool CanExecuteAssignmentCommand()
+        private async Task ViewPatientDetailCommandExecute(PatientDto arg)
         {
-            return SelectedPatient != null;
-        }
-
-        private async Task AssignmentCommandExecute()
-        {
-            //var view = ServiceLocator.Default.ResolveType<AssignmentViewModel>();
-            //view.Patient = SelectedPatient;
-            //_uiCompositionService.Activate(view, DefinedRegions.MainContent);
+            if (arg is null)
+                return;
+            await CoreMethods.PushPageModel<PatientDetailPageModel>(arg);
         }
 
         #endregion

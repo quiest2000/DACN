@@ -14,7 +14,6 @@
     <EmbeddedResource Remove="Views\MainPage.xaml" />
     <EmbeddedResource Remove="Views\NewItemPage.xaml" />
     <EmbeddedResource Remove="GUIAppearance\Themes\MyPage.xaml" />
-    <EmbeddedResource Remove="GUIAppearance\Values\Colors.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Views\AboutPage.xaml.cs" />
@@ -32,12 +31,9 @@
     <Folder Include="Pages" />
     <Folder Include="Models\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="GUIAppearance\" />
-    <Folder Include="GUIAppearance\Themes\" />
-    <Folder Include="GUIAppearance\Styles\" />
     <Folder Include="Utils\" />
+    <Folder Include="Utils\Behaviors" />
     <Folder Include="Utils\Converters\" />
-    <Folder Include="Utils\Behaviors\" />
     <Folder Include="Utils\Controls\" />
     <Folder Include="Utils\Extensions\" />
     <Folder Include="Pages\Payment\" />

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace HReception.UI.GUIAppearance.Themes
+namespace HReception.UI.Pages.Common
 {
-    public partial class MyPage : ContentPage
+    public partial class PatientDetailPage : ContentPage
     {
-        public MyPage()
+        public PatientDetailPage()
         {
             InitializeComponent();
         }

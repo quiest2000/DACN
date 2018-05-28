@@ -6,6 +6,7 @@ using HReception.Logic.Services.Interfaces.Common;
 using HReception.Logic.Utils.Extensions;
 using HReception.UI.PageModels.Payment;
 using Xamarin.Forms;
+using HReception.UI.Utils.Extensions;
 
 namespace HReception.UI.PageModels.Common
 {
@@ -50,10 +51,7 @@ namespace HReception.UI.PageModels.Common
                 await CoreMethods.DisplayAlert("Warning", "Tên đăng nhập hoặc mật khẩu không đúng.", "Ok");
                 return;
             }
-            var nextTabbedPage = new FreshTabbedNavigationContainer(AppStack.MainAppStack);
-            nextTabbedPage.AddTab<HomePageModel>("Home", "tab_feed.png");
-            nextTabbedPage.AddTab<TransactionListPageModel>("Trans", "tab_about.png");
-            CoreMethods.SwitchOutRootNavigation(AppStack.MainAppStack);
+            this.GoToMainPage();
         }
         #endregion
 
