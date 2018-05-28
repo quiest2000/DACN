@@ -15,6 +15,7 @@ namespace HReception.Logic.Context
     {
         private const string DataInstalledKey = "SimulatorContext.DataInstalledKey";
         private static string _dbPath = null;
+        private static readonly object _lockObj = new object();
         private SimulatorContext()
         {
             Database.EnsureCreated();
@@ -30,7 +31,23 @@ namespace HReception.Logic.Context
             }
 
             var context = new SimulatorContext();
-            EnsureDataInstalled(context);
+            var installed = false;
+            lock (_lockObj)
+            {
+                installed = Application.Current.Properties.ContainsKey(DataInstalledKey);
+            }
+
+            if (!installed)
+            {
+                lock (_lockObj)
+                {
+                    Application.Current.Properties.Add(DataInstalledKey, true);
+                    Application.Current.SavePropertiesAsync();
+                }
+
+                EnsureDataInstalled(context);
+            }
+
             return context;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -54,13 +71,6 @@ namespace HReception.Logic.Context
 
         static void EnsureDataInstalled(SimulatorContext context)
         {
-            var installed = Application.Current.Properties.ContainsKey(DataInstalledKey);
-            if (installed)
-                return;
-
-            Application.Current.Properties.Add(DataInstalledKey, true); ;
-            Task.Run(async () => await Application.Current.SavePropertiesAsync());
-
             context.Gencodes.AddRange(new[]
             {
                         new Gencode

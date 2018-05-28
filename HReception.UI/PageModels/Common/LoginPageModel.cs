@@ -53,7 +53,6 @@ namespace HReception.UI.PageModels.Common
             var nextTabbedPage = new FreshTabbedNavigationContainer(AppStack.MainAppStack);
             nextTabbedPage.AddTab<HomePageModel>("Home", "tab_feed.png");
             nextTabbedPage.AddTab<TransactionListPageModel>("Trans", "tab_about.png");
-            CoreMethods.RemoveFromNavigation();
             CoreMethods.SwitchOutRootNavigation(AppStack.MainAppStack);
         }
         #endregion
