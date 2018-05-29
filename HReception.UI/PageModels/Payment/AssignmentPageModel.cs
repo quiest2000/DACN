@@ -15,7 +15,11 @@ namespace HReception.UI.PageModels.Payment
         {
             _paymentService = paymentService;
         }
-
+        public override void Init(object initData)
+        {
+            CurrentPage.Title = "Giao dịch mới";
+            base.Init(initData);
+        }
         #region Properties
         public PatientDto Patient { get; set; }
         public ObservableCollection<ItemReponse> SelectedItems { get; set; }

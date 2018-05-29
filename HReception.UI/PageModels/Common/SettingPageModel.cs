@@ -18,6 +18,7 @@ namespace HReception.UI.PageModels.Common
 
         public override void Init(object initData)
         {
+            CurrentPage.Title = "Settings";
             CurrentUser = _securityService.CurrentUser();
             base.Init(initData);
         }

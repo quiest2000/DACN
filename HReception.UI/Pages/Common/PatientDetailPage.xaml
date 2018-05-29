@@ -27,7 +27,7 @@
             <Label Grid.Row="0" Grid.Column="1" Text="{Binding CurrentPatient.PatientCode}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" FontAttributes="Bold" />
             <Label Grid.Row="1" Grid.Column="0" Text="Họ và tên" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
             <Entry Grid.Row="1" Grid.Column="1" Text="{Binding CurrentPatient.FullName, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" IsEnabled="{Binding EditMode}" />
-            <Label Grid.Row="2" Grid.Column="0" Text="Số điện thoại" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
+            <Label Grid.Row="2" Grid.Column="0" Text="Điện thoại" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
             <Entry Grid.Row="2" Grid.Column="1" Text="{Binding CurrentPatient.Phone, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" IsEnabled="{Binding EditMode}" Keyboard="Telephone" />
             <!--            <Label Grid.Row="3" Grid.Column="0" Text="Địa chỉ" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>-->
             <!--            <Editor Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Text="{Binding CurrentPatient.FullAddress, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" IsEnabled="{Binding EditMode}"/>-->

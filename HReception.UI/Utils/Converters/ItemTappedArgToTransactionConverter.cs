@@ -7,7 +7,7 @@ namespace HReception.UI.Utils.Converters
 {
     public class ItemTappedArgToTransactionConverter : IValueConverter
     {
-        public static ItemTappedArgToPatientConverter Instance = new ItemTappedArgToPatientConverter();
+        public static ItemTappedArgToTransactionConverter Instance = new ItemTappedArgToTransactionConverter();
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var eventArg = value as ItemTappedEventArgs;

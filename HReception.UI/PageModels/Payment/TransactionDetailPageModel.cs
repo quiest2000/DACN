@@ -7,6 +7,7 @@ namespace HReception.UI.PageModels.Payment
     {
         public override void Init(object initData)
         {
+            CurrentPage.Title = "Chi tiết";
             Transaction = initData as TransactionReponse;
             Details = Transaction?.Details ?? new List<TransactionDetailDto>();
             base.Init(initData);

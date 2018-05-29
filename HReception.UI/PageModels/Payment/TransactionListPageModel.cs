@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HReception.Logic.Services.Interfaces.Payment;
 using Xamarin.Forms;
-using FreshMvvm;
 
 namespace HReception.UI.PageModels.Payment
 {
     public class TransactionListPageModel : PageModelBase
     {
+        private bool _initSearch = false;
         private readonly IPaymentService _paymentService;
         public TransactionListPageModel(IPaymentService paymentService)
         {
@@ -21,23 +20,28 @@ namespace HReception.UI.PageModels.Payment
 
         public override void Init(object initData)
         {
-            FromDate = DateTime.Today;
-            ToDate = DateTime.Now;
-            SearchCommand.Execute(null);
+            CurrentPage.Title = "DS giao dịch";
+            SelectedDate = DateTime.Now;
             base.Init(initData);
         }
-
+        protected override void ViewIsAppearing(object sender, EventArgs e)
+        {
+            if (!_initSearch)
+                SearchCommand.Execute(null);
+            _initSearch = true;
+            base.ViewIsAppearing(sender, e);
+        }
         #endregion
 
         #region Properties
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
-        public string SearchId { get; set; }
-        public string PatientCode { get; set; }
-        public List<TransactionReponse> Transactions { get; set; }
+
+        public DateTime SelectedDate { get; set; }
+        public string KeyWord { get; set; }
+        public IList<TransactionReponse> Transactions { get; set; }
         #endregion
 
         #region Commands
+
         #region ViewDetailCommand
 
         private ICommand _ViewDetailCommand;
@@ -71,9 +75,7 @@ namespace HReception.UI.PageModels.Payment
             try
             {
                 IsBusy = true;
-                int.TryParse(SearchId, out var id);
-                var trans = await _paymentService.GetTransactions(FromDate, ToDate, id, PatientCode ?? string.Empty);
-                Transactions = trans.ToList();
+                Transactions = await _paymentService.GetTransactions(SelectedDate.Date, SelectedDate.Date.AddDays(1), 0, KeyWord.IsNullOrEmpty() ? string.Empty : KeyWord.Trim());
                 IsBusy = false;
             }
             finally
@@ -81,6 +83,19 @@ namespace HReception.UI.PageModels.Payment
                 IsBusy = false;
             }
         }
+        #endregion
+
+        #region GoToAssignmentPageCommand
+
+        private ICommand _GoToAssignmentPageCommand;
+
+        public ICommand GoToAssignmentPageCommand => _GoToAssignmentPageCommand ?? (_GoToAssignmentPageCommand = new Command(async () => { await GoToAssignmentPageCommandExecute(); }));
+
+        private async Task GoToAssignmentPageCommandExecute()
+        {
+            await CoreMethods.PushPageModel<AssignmentPageModel>();
+        }
+
         #endregion
 
         #endregion
