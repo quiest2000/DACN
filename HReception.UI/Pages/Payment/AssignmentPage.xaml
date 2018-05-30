@@ -1,5 +1,28 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HReception.UI.Pages.Payment.AssignmentPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="add32.png" Order="Primary" Command="{Binding SelectItemCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="{Binding Patient.PatientCode, StringFormat='MSBN: {0}'}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" FontAttributes="Bold" />
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Patient.FullName, StringFormat='Họ tên:{0}'}" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="FillAndExpand" FontAttributes="Bold" />
+            <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding SelectedItems}" HorizontalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Display}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label Grid.Row="3" Text="{Binding Total, StringFormat='Tổng: {0:N0} vnđ'}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="End" FontAttributes="Italic" />
+            <Button Grid.Row="4" Text="Lưu phiếu" Command="{Binding SaveCommand}" HorizontalOptions="CenterAndExpand" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

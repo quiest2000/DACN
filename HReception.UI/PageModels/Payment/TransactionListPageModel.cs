@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HReception.Logic.Services.Interfaces.Payment;
 using Xamarin.Forms;
+using HReception.Logic.Utils.Extensions;
+using HReception.UI.PageModels.Common;
+using HReception.Logic.Services.Interfaces.Patients;
 
 namespace HReception.UI.PageModels.Payment
 {
@@ -17,7 +20,25 @@ namespace HReception.UI.PageModels.Payment
         }
 
         #region overrides
+        public override async void ReverseInit(object returnedData)
+        {
+            base.ReverseInit(returnedData);
+            if (returnedData is null)
+                return;
+            
+            if (returnedData is bool dataChanged)
+            {
+                SearchCommand.Execute(null);
+                return;
+            }
 
+            if (returnedData is PatientDto selectedPatient)
+            {
+                //go to assigmnent page
+                await CoreMethods.PushPageModel<AssignmentPageModel>(selectedPatient);
+                return;
+            }
+        }
         public override void Init(object initData)
         {
             CurrentPage.Title = "DS giao dịch";
@@ -93,7 +114,7 @@ namespace HReception.UI.PageModels.Payment
 
         private async Task GoToAssignmentPageCommandExecute()
         {
-            await CoreMethods.PushPageModel<AssignmentPageModel>();
+            await CoreMethods.PushPageModel<HomePageModel>(true, true);
         }
 
         #endregion

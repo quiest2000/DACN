@@ -5,6 +5,8 @@ using System.Windows.Input;
 using HReception.Logic.Services.Interfaces.Patients;
 using HReception.Logic.Services.Interfaces.Payment;
 using Xamarin.Forms;
+using HReception.Logic.Utils.Extensions;
+using HReception.UI.Utils.Extensions;
 
 namespace HReception.UI.PageModels.Payment
 {
@@ -15,11 +17,41 @@ namespace HReception.UI.PageModels.Payment
         {
             _paymentService = paymentService;
         }
+
         public override void Init(object initData)
         {
             CurrentPage.Title = "Giao dịch mới";
+            Patient = initData as PatientDto;
             base.Init(initData);
         }
+
+        public override void ReverseInit(object returnedData)
+        {
+            base.ReverseInit(returnedData);
+            if (!(returnedData is ItemReponse[] selectedItems) || selectedItems.IsNullOrEmpty())
+                return;
+
+            var curItems = new ObservableCollection<ItemReponse>(SelectedItems ?? new ObservableCollection<ItemReponse>());
+
+            foreach (var newItem in selectedItems)
+            {
+                var curItem = curItems.FirstOrDefault(aa => aa.ItemCode == newItem.ItemCode);
+                if (curItem != null)
+                {
+                    curItem.Qty++;
+                    curItem.Total = curItem.Qty * curItem.UnitPrice;
+                }
+                else
+                {
+                    newItem.Qty = 1;
+                    newItem.Total = newItem.Qty * newItem.UnitPrice;
+                    curItems.Add(newItem);
+                }
+            }
+
+            SelectedItems = new ObservableCollection<ItemReponse>(curItems);
+        }
+
         #region Properties
         public PatientDto Patient { get; set; }
         public ObservableCollection<ItemReponse> SelectedItems { get; set; }
@@ -41,34 +73,7 @@ namespace HReception.UI.PageModels.Payment
         /// </summary>
         private async Task OnSelectItemCommandExecute()
         {
-            //var newItems = new ObservableCollection<ItemReponse>();
-            //await _uiVisualizerService.ShowDialogAsync<SelectItemViewModel>(null, (sender, args) =>
-            //   {
-            //       if (!args.Result.HasValue || !args.Result.Value)
-            //           return;
-            //       var view = args.DataContext as SelectItemViewModel;
-            //       if (view != null)
-            //           newItems = new ObservableCollection<ItemReponse>(view.Items.Where(aa => aa.IsChecked));
-            //   });
-            //if (!newItems.Any())
-            //    return;
-            //var curItems = new ObservableCollection<ItemReponse>(SelectedItems ?? new ObservableCollection<ItemReponse>());
-            //newItems.ForEach(newItem =>
-            //{
-            //    var curItem = curItems.FirstOrDefault(aa => aa.ItemCode == newItem.ItemCode);
-            //    if (curItem != null)
-            //    {
-            //        curItem.Qty++;
-            //        curItem.Total = curItem.Qty * curItem.UnitPrice;
-            //    }
-            //    else
-            //    {
-            //        newItem.Qty = 1;
-            //        newItem.Total = newItem.Qty * newItem.UnitPrice;
-            //        curItems.Add(newItem);
-            //    }
-            //});
-            //SelectedItems = new ObservableCollection<ItemReponse>(curItems);
+            await CoreMethods.PushPageModel<SelectItemPageModel>(null, true);
         }
         #endregion
 
@@ -89,56 +94,26 @@ namespace HReception.UI.PageModels.Payment
         /// </summary>
         private async Task OnSaveCommandExecute()
         {
-            //var mrs = await _messageService.ShowAsync("Bạn có chắc muốn lưu phiếu đăng ký?", "xác nhận", MessageButton.OKCancel,
-            //    MessageImage.Question);
-            //if (mrs != MessageResult.OK)
-            //    return;
+            var reponse = _paymentService.CreateTransaction(new NewTransactionRequest
+            {
+                PatientCode = Patient.PatientCode,
+                Amount = Total,
+                ListItems = SelectedItems.Select(aa => new ItemDetailRequest
+                {
+                    Amount = aa.Qty,
+                    Total = aa.Total,
+                    ItemCode = aa.ItemCode,
+                    ItemName = aa.ItemName,
+                    UnitPrice = aa.UnitPrice,
+                    UnitName = aa.UnitName,
+                }).ToList()
+            });
 
-            //var reponse = _paymentService.CreateTransaction(new NewTransactionRequest
-            //{
-            //    PatientCode = Patient.PatientCode,
-            //    Amount = Total,
-            //    ListItems = SelectedItems.Select(aa => new ItemDetailRequest
-            //    {
-            //        Amount = aa.Qty,
-            //        Total = aa.Total,
-            //        ItemCode = aa.ItemCode,
-            //        ItemName = aa.ItemName,
-            //        UnitPrice = aa.UnitPrice,
-            //        UnitName = aa.UnitName,
-            //    }).ToList()
-            //});
-            //if (reponse.HasErrorOnRemoting)
-            //    return;
-
-            //if (reponse.Result == NewTransactionResult.Succeeded)
-            //{
-            //    //await _messageService.ShowInformationAsync("Đã lưu phiếu đăng ký!");
-            //    await OnCancelCommandExecute();
-            //}
-            //else
-            //{
-            //    await _messageService.ShowErrorAsync("Lưu phiếu thất bại, vui lòng thử lại sau.");
-            //}
+            if (reponse.Result != NewTransactionResult.Succeeded)
+                await this.ShowWarningAsync("Không thể lưu phiếu, vui lòng thử lại sau.");
+            await CoreMethods.PopPageModel(data: reponse.Result == NewTransactionResult.Succeeded);
         }
         #endregion
-
-        #region CancelCommand
-        private ICommand _cancelCommand;
-        /// <summary>
-        /// Gets the CancelCommand command.
-        /// </summary>
-        public ICommand CancelCommand => _cancelCommand ?? (_cancelCommand = new Command(async () => { await OnCancelCommandExecute(); }));
-
-        /// <summary>
-        /// Method to invoke when the CancelCommand command is executed.
-        /// </summary>
-        private async Task OnCancelCommandExecute()
-        {
-            //_uiCompositionService.Activate<HomeViewModel>(DefinedRegions.MainContent);
-        }
-        #endregion
-
 
         #region RemoveItemCommand
         private ICommand _removeItemCommand;
@@ -152,11 +127,13 @@ namespace HReception.UI.PageModels.Payment
         /// </summary>
         private async Task RemoveItemCommandExecute(ItemReponse arg)
         {
-            //var mrs = await _messageService.ShowAsync($"Bạn có chắc muốn xóa dịch vụ [{arg.ItemName}]?", "Xác nhận",
-            //    MessageButton.YesNo, MessageImage.Question);
-            //if (mrs != MessageResult.Yes)
-            //    return;
-            //SelectedItems = new ObservableCollection<ItemReponse>(SelectedItems.Where(aa => aa != arg).ToArray());
+            if (arg is null)
+                return;
+
+            var mrs = await this.ShowConfirmAsync("Bạn có chắc muốn xoá dịch vụ?");
+            if (!mrs)
+                return;
+            SelectedItems = new ObservableCollection<ItemReponse>(SelectedItems.Where(aa => aa != arg).ToArray());
         }
         #endregion
 

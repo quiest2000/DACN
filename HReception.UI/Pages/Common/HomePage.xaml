@@ -5,6 +5,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <SearchBar Grid.Row="0" Placeholder="Enter patient name" HorizontalOptions="FillAndExpand" SearchCommand="{Binding SearchCommand}" Text="{Binding SearchPatientCode}" />
             <ListView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ItemsSource="{Binding Patients}" SelectedItem="{Binding SelectedPatient}">
@@ -33,6 +34,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Grid.Row="2" Text="Huỷ thao tác" Command="{Binding CancelCommand}" IsVisible="{Binding SelectMode}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

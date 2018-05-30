@@ -13,7 +13,6 @@ namespace HReception.UI.PageModels.Common
     {
         private readonly IPatientService _patientService;
         private IList<PatientDto> _allPatients;
-
         public HomePageModel(IPatientService patientService)
         {
             _patientService = patientService;
@@ -22,7 +21,9 @@ namespace HReception.UI.PageModels.Common
         #region Overrides
         public override void Init(object initData)
         {
-            CurrentPage.Title = "Trang chủ";
+            var tmp = (initData as bool?);
+            SelectMode = tmp.HasValue && tmp.Value;
+            CurrentPage.Title = SelectMode ? "Chọn bệnh nhân" : "Trang chủ";
             base.Init(initData);
         }
         public override async void ReverseInit(object returnedData)
@@ -50,6 +51,8 @@ namespace HReception.UI.PageModels.Common
         #endregion
 
         #region Properties
+        public bool SelectMode { get; set; }
+
         string _searchPatientCode;
 
         public string SearchPatientCode
@@ -77,6 +80,23 @@ namespace HReception.UI.PageModels.Common
         #endregion
 
         #region Commands
+        #region CancelCommand
+
+        private ICommand _CancelCommand;
+
+        public ICommand CancelCommand => _CancelCommand ?? (_CancelCommand = new Command(async () => { await CancelCommandExecute(); }, CancelCommandCanExecute));
+
+        private bool CancelCommandCanExecute()
+        {
+            return SelectMode;
+        }
+
+        private async Task CancelCommandExecute()
+        {
+            await CoreMethods.PopPageModel(null, true);
+        }
+
+        #endregion
 
         #region SearchCommand
 
@@ -116,7 +136,11 @@ namespace HReception.UI.PageModels.Common
         {
             if (arg is null)
                 return;
-            await CoreMethods.PushPageModel<PatientDetailPageModel>(arg);
+            if (SelectMode)
+                await CoreMethods.PopPageModel(arg, true);
+            else
+                await CoreMethods.PushPageModel<PatientDetailPageModel>(arg);
+
         }
 
         #endregion

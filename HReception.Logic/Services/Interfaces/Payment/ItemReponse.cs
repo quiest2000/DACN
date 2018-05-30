@@ -2,6 +2,7 @@
 {
     public class ItemReponse
     {
+        public string Display => $"{ItemCode}: {ItemName}";
         /// <summary>
         /// Mã số
         /// </summary>
