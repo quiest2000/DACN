@@ -18,8 +18,8 @@ namespace HReception.UI.Utils.Extensions
         public static void GoToMainPage(this FreshBasePageModel pageModel)
         {
             var nextTabbedPage = new FreshTabbedNavigationContainer(AppStack.MainAppStack);
-            nextTabbedPage.AddTab<HomePageModel>("Home", "tab_feed.png");
-            nextTabbedPage.AddTab<TransactionListPageModel>("Trans", "tab_about.png");
+            nextTabbedPage.AddTab<HomePageModel>("Home", "home32.png");
+            nextTabbedPage.AddTab<TransactionListPageModel>("Transactions", "checklist30.png");
             nextTabbedPage.AddTab<SettingPageModel>("Settings", "tab_about.png");
             pageModel.CoreMethods.SwitchOutRootNavigation(AppStack.MainAppStack);
         }

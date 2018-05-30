@@ -9,6 +9,7 @@ namespace HReception.UI.PageModels.Payment
 {
     public class TransactionListPageModel : PageModelBase
     {
+        private bool _initSearch = false;
         private readonly IPaymentService _paymentService;
         public TransactionListPageModel(IPaymentService paymentService)
         {
@@ -17,66 +18,46 @@ namespace HReception.UI.PageModels.Payment
 
         #region overrides
 
-        protected override async void ViewIsAppearing(object sender, EventArgs e)
+        public override void Init(object initData)
         {
-            FromDate = DateTime.Today;
-            ToDate = DateTime.Now;
-            await OnSearchCommandExecute();
+            CurrentPage.Title = "DS giao dịch";
+            SelectedDate = DateTime.Now;
+            base.Init(initData);
+        }
+        protected override void ViewIsAppearing(object sender, EventArgs e)
+        {
+            if (!_initSearch)
+                SearchCommand.Execute(null);
+            _initSearch = true;
             base.ViewIsAppearing(sender, e);
         }
-
         #endregion
 
         #region Properties
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
-        public string SearchId { get; set; }
-        public string PatientCode { get; set; }
-        public List<TransactionReponse> Transactions { get; set; }
-        public TransactionReponse SelectedTransaction { get; set; }
+
+        public DateTime SelectedDate { get; set; }
+        public string KeyWord { get; set; }
+        public IList<TransactionReponse> Transactions { get; set; }
         #endregion
 
         #region Commands
 
         #region ViewDetailCommand
-        private ICommand _viewDetailCommand;
-        /// <summary>
-        /// Gets the ViewDetailCommand command.
-        /// </summary>
-        public ICommand ViewDetailCommand => _viewDetailCommand ?? (_viewDetailCommand = new Command(async () => { await ViewDetailCommandExecute(); }, CanExecuteViewDetailCommand));
 
-        private bool CanExecuteViewDetailCommand()
+        private ICommand _ViewDetailCommand;
+
+        public ICommand ViewDetailCommand => _ViewDetailCommand ?? (_ViewDetailCommand = new Command<TransactionReponse>(async (arg) => { await ViewDetailCommandExecute(arg); }));
+
+        private async Task ViewDetailCommandExecute(TransactionReponse arg)
         {
-            return SelectedTransaction != null;
+            if (arg == null)
+                return;
+
+            var details = await _paymentService.GetDetails(arg.Id);
+            arg.Details = details;
+            await CoreMethods.PushPageModel<TransactionDetailPageModel>(arg);
         }
 
-        /// <summary>
-        /// Method to invoke when the command ViewDetailCommand is executed.
-        /// </summary>
-        private async Task ViewDetailCommandExecute()
-        {
-            //var vm = ServiceLocator.Default.ResolveType<TransactionDetailViewModel>();
-            //vm.Transaction = SelectedTransaction;
-            //vm.Details = await _paymentService.GetDetails(SelectedTransaction.Id);
-            //await _uiVisualizerService.ShowAsync(vm);
-        }
-        #endregion
-
-
-        #region BackCommand
-        private ICommand _backCommand;
-        /// <summary>
-        /// Gets the BackCommand command.
-        /// </summary>
-        public ICommand BackCommand => _backCommand ?? (_backCommand = new Command(async () => { await OnBackCommandExecute(); }));
-
-        /// <summary>
-        /// Method to invoke when the BackCommand command is executed.
-        /// </summary>
-        private async Task OnBackCommandExecute()
-        {
-            //_uiCompositionService.Activate<HomeViewModel>(DefinedRegions.MainContent);
-        }
         #endregion
 
         #region SearchCommand
@@ -91,13 +72,30 @@ namespace HReception.UI.PageModels.Payment
         /// </summary>
         private async Task OnSearchCommandExecute()
         {
-            //_pleaseWaitService.Show();
-            //int.TryParse(SearchId, out var id);
-            //var trans = await _paymentService.GetTransactions(FromDate, ToDate, id, PatientCode ?? string.Empty);
-            //Transactions = trans.ToList();
-            //SelectedTransaction = Transactions.FirstOrDefault();
-            //_pleaseWaitService.Hide();
+            try
+            {
+                IsBusy = true;
+                Transactions = await _paymentService.GetTransactions(SelectedDate.Date, SelectedDate.Date.AddDays(1), 0, KeyWord.IsNullOrEmpty() ? string.Empty : KeyWord.Trim());
+                IsBusy = false;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
+        #endregion
+
+        #region GoToAssignmentPageCommand
+
+        private ICommand _GoToAssignmentPageCommand;
+
+        public ICommand GoToAssignmentPageCommand => _GoToAssignmentPageCommand ?? (_GoToAssignmentPageCommand = new Command(async () => { await GoToAssignmentPageCommandExecute(); }));
+
+        private async Task GoToAssignmentPageCommandExecute()
+        {
+            await CoreMethods.PushPageModel<AssignmentPageModel>();
+        }
+
         #endregion
 
         #endregion

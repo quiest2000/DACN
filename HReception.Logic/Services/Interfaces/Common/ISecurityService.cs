@@ -8,5 +8,6 @@ namespace HReception.Logic.Services.Interfaces.Common
         string CreateSalt();
         Task<LoginResultDto> Login(string userName, string password);
         void Logout();
+        LoginResultDto CurrentUser();
     }
 }

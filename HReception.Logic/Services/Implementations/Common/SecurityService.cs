@@ -3,7 +3,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using HReception.Core;
 using HReception.Logic.Context;
 using HReception.Logic.Services.Interfaces.Common;
 using HReception.Logic.Utils.Extensions;
@@ -36,6 +35,7 @@ namespace HReception.Logic.Services.Implementations.Common
 
         public async Task<LoginResultDto> Login(string userName, string password)
         {
+            _currentUser = null;
             using (var context = SimulatorContext.Create())
             {
                 var user = await context.Users.FirstOrDefaultAsync(aa => aa.UserName == userName);
@@ -45,7 +45,7 @@ namespace HReception.Logic.Services.Implementations.Common
                 var hashed = Hash(password, user.Salt);
                 if (hashed != user.Password)
                     return new LoginResultDto { IsValid = false };
-                return new LoginResultDto
+                return _currentUser = new LoginResultDto
                 {
                     IsValid = true,
                     UserName = userName,
@@ -57,7 +57,12 @@ namespace HReception.Logic.Services.Implementations.Common
 
         public void Logout()
         {
-            //todo: cleanup
+            _currentUser = null;
+        }
+        private LoginResultDto _currentUser;
+        public LoginResultDto CurrentUser()
+        {
+            return _currentUser;
         }
     }
 }

@@ -127,6 +127,10 @@
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <BundleResource Include="Resources\more50.png" />
+    <BundleResource Include="Resources\checklist30.png" />
+    <BundleResource Include="Resources\home32.png" />
+    <BundleResource Include="Resources\add32.png" />
+    <BundleResource Include="Resources\search32.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -22,8 +22,7 @@ namespace HReception.UI.PageModels.Common
         #region Overrides
         public override void Init(object initData)
         {
-            CurrentPage.Title = "DS bệnh nhân";
-
+            CurrentPage.Title = "Trang chủ";
             base.Init(initData);
         }
         public override async void ReverseInit(object returnedData)
