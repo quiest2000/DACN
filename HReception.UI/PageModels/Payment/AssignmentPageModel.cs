@@ -86,7 +86,7 @@ namespace HReception.UI.PageModels.Payment
 
         private bool CanExecuteSaveCommand()
         {
-            return SelectedItems?.Any() ?? false;
+            return true;
         }
 
         /// <summary>
@@ -94,6 +94,8 @@ namespace HReception.UI.PageModels.Payment
         /// </summary>
         private async Task OnSaveCommandExecute()
         {
+            if (SelectedItems.IsNullOrEmpty())
+                return;
             var reponse = _paymentService.CreateTransaction(new NewTransactionRequest
             {
                 PatientCode = Patient.PatientCode,

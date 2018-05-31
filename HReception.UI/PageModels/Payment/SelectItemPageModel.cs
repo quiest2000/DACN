@@ -22,6 +22,7 @@ namespace HReception.UI.PageModels.Payment
         public override void Init(object initData)
         {
             base.Init(initData);
+            CurrentPage.Title = "Chọn dịch vụ";
             _allitems = _paymentService.GetAllItems();
             Items = new ObservableCollection<ItemReponse>(_allitems);
         }

@@ -19,8 +19,8 @@ namespace HReception.Logic.Services.Implementations.Payment
             var now = DateTime.Now;
             using (var context = SimulatorContext.Create())
             {
-                using (var scope = new System.Transactions.TransactionScope())
-                {
+                //using (var scope = new System.Transactions.TransactionScope())
+                //{
                     var transaction = new Transaction
                     {
                         PatientCode = request.PatientCode,
@@ -31,20 +31,22 @@ namespace HReception.Logic.Services.Implementations.Payment
                         ReferenceCode = now.Ticks.ToString(),
                         Status = TransactionStatus.WaitingForPayment
                     };
-                    transaction.Details.AddRange(request.ListItems.Select(aa => new TransactionDetail
+                    context.Transactions.Add(transaction);
+                    context.SaveChanges();
+                    var details = request.ListItems.Select(aa => new TransactionDetail
                     {
-                        Transaction = transaction,
+                        TransactionId = transaction.Id,
                         Note = aa.Note,
                         Amount = aa.Amount,
                         ItemCode = aa.ItemCode,
                         Total = aa.Total,
                         UnitName = aa.UnitName,
                         UnitPrice = aa.UnitPrice,
-                    }));
-                    context.Transactions.Add(transaction);
+                    }).ToList();
+                    context.TransactionDetails.AddRange(details);
                     context.SaveChanges();
-                    scope.Complete();
-                }
+                //    scope.Complete();
+                //}
             }
 
             return new NewTransactionReponse { Result = NewTransactionResult.Succeeded };
