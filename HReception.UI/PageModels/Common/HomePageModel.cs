@@ -119,9 +119,17 @@ namespace HReception.UI.PageModels.Common
         /// </summary>
         private void OnSearchCommandExecute()
         {
-            var noneSigned = (SearchPatientCode ?? string.Empty).ToNoneSign().ToLower();
-            Patients = _allPatients.Where(aa => aa.SearchField.Contains(noneSigned)).ToList();
-            SelectedPatient = Patients.FirstOrDefault();
+            try
+            {
+                IsBusy = true;
+                var noneSigned = (SearchPatientCode ?? string.Empty).ToNoneSign().ToLower();
+                Patients = _allPatients.Where(aa => aa.SearchField.Contains(noneSigned)).ToList();
+                SelectedPatient = Patients.FirstOrDefault();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         #endregion

@@ -96,24 +96,34 @@ namespace HReception.UI.PageModels.Payment
         {
             if (SelectedItems.IsNullOrEmpty())
                 return;
-            var reponse = _paymentService.CreateTransaction(new NewTransactionRequest
-            {
-                PatientCode = Patient.PatientCode,
-                Amount = Total,
-                ListItems = SelectedItems.Select(aa => new ItemDetailRequest
-                {
-                    Amount = aa.Qty,
-                    Total = aa.Total,
-                    ItemCode = aa.ItemCode,
-                    ItemName = aa.ItemName,
-                    UnitPrice = aa.UnitPrice,
-                    UnitName = aa.UnitName,
-                }).ToList()
-            });
 
-            if (reponse.Result != NewTransactionResult.Succeeded)
-                await this.ShowWarningAsync("Không thể lưu phiếu, vui lòng thử lại sau.");
-            await CoreMethods.PopPageModel(data: reponse.Result == NewTransactionResult.Succeeded);
+            try
+            {
+                IsBusy = true;
+                var reponse = _paymentService.CreateTransaction(new NewTransactionRequest
+                {
+                    PatientCode = Patient.PatientCode,
+                    Amount = Total,
+                    ListItems = SelectedItems.Select(aa => new ItemDetailRequest
+                    {
+                        Amount = aa.Qty,
+                        Total = aa.Total,
+                        ItemCode = aa.ItemCode,
+                        ItemName = aa.ItemName,
+                        UnitPrice = aa.UnitPrice,
+                        UnitName = aa.UnitName,
+                    }).ToList()
+                });
+                IsBusy = false;
+
+                if (reponse.Result != NewTransactionResult.Succeeded)
+                    await this.ShowWarningAsync("Không thể lưu phiếu, vui lòng thử lại sau."); 
+                await CoreMethods.PopPageModel(data: reponse.Result == NewTransactionResult.Succeeded);
+            }
+            finally
+            {
+                IsBusy = false;
+            }           
         }
         #endregion
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converter="clr-namespace:HReception.UI.Utils.Converters;assembly=HReception.UI" x:Class="HReception.UI.Pages.Payment.SelectItemPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="check32.png" Order="Primary" Command="{Binding DoneCommand}" />
@@ -15,7 +15,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <SearchBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Placeholder="Tìm dịch vụ" Text="{Binding SearchCode, UpdateSourceEventName=TextChanged}" SearchCommand="{Binding SearchCommand}" Margin="5,5,5,0" VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
+            <SearchBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Placeholder="Tìm dịch vụ" Text="{Binding SearchCode, UpdateSourceEventName=TextChanged}" SearchCommand="{Binding SearchCommand}" Margin="5,5,5,0" VerticalOptions="Center" HorizontalOptions="Fill" />
             <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Items}" HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>

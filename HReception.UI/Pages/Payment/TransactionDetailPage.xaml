@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HReception.UI.Pages.Payment.TransactionDetailPage">
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HReception.UI.Pages.Payment.TransactionDetailPage" >
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -13,7 +13,7 @@
             <Label Grid.Row="1" Text="{Binding Transaction.PatientName, StringFormat='Họ tên: {0}'}" />
             <Label Grid.Row="2" Text="{Binding Transaction.Id, StringFormat='Mã giao dịch: {0}'}" />
             <Label Grid.Row="3" Text="{Binding Transaction.Amount, StringFormat='Tổng tiền giao dịch: {0:N0} vnđ'}" />
-            <ListView Grid.Row="4" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Details}" >
+            <ListView Grid.Row="4" HorizontalOptions="Fill" ItemsSource="{Binding Details}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding Display}" />
