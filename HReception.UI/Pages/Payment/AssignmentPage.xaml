@@ -11,6 +11,10 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Text="{Binding Patient.PatientCode, StringFormat='MSBN: {0}'}" Margin="5,5,5,0" HorizontalOptions="Fill" FontAttributes="Bold" />
             <Label Grid.Row="1" Grid.Column="0" Text="{Binding Patient.FullName, StringFormat='Họ tên:{0}'}" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Fill" FontAttributes="Bold" />
             <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding SelectedItems}" HasUnevenRows="true">
@@ -48,7 +52,8 @@
                     <Label Grid.Row="3" Text="{Binding Total, StringFormat='Tổng tiền: {0:N0} vnđ'}" Margin="5,5,5,0" HorizontalOptions="End" HorizontalTextAlignment="End" Style="{StaticResource HightLightTextStyle}" TextColor="{StaticResource HightlightColorPrimary}"/>
                 </ListView.Footer>
             </ListView>
-            <Button Grid.Row="3" Text="Lưu phiếu" Command="{Binding SaveCommand}" />
+            <Button Grid.Row="3" Text="Xoá DV" Command="{Binding RemoveItemCommand}" Style="{StaticResource HightButtonStyle}"/>
+            <Button Grid.Row="3" Grid.Column="1" Text="Lưu phiếu" Command="{Binding SaveCommand}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -26,7 +26,6 @@ namespace HReception.UI.PageModels.Common
         public override void Init(object initData)
         {
             CurrentPage.Title = "Đăng nhập";
-            NavigationPage.SetHasNavigationBar(CurrentPage, false);
             base.Init(initData);
         }
 

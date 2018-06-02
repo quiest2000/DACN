@@ -50,11 +50,13 @@ namespace HReception.UI.PageModels.Payment
             }
 
             SelectedItems = new ObservableCollection<ItemReponse>(curItems);
+            SelectedItem = SelectedItems.FirstOrDefault();
         }
 
         #region Properties
         public PatientDto Patient { get; set; }
         public ObservableCollection<ItemReponse> SelectedItems { get; set; }
+        public ItemReponse SelectedItem { get; set; }
         public int Count => SelectedItems?.Count ?? 0;
         public double Total => SelectedItems?.Sum(aa => aa.Total) ?? 0;
         #endregion
@@ -132,20 +134,21 @@ namespace HReception.UI.PageModels.Payment
         /// <summary>
         /// Gets the RemoveItemCommand command.
         /// </summary>
-        public ICommand RemoveItemCommand => _removeItemCommand ?? (_removeItemCommand = new Command<ItemReponse>(async (obj) => { await RemoveItemCommandExecute(obj); }));
+        public ICommand RemoveItemCommand => _removeItemCommand ?? (_removeItemCommand = new Command<ItemReponse>(async (obj) => { await RemoveItemCommandExecute(); }));
 
         /// <summary>
         /// Method to invoke when the command RemoveItemCommand is executed.
         /// </summary>
-        private async Task RemoveItemCommandExecute(ItemReponse arg)
+        private async Task RemoveItemCommandExecute()
         {
-            if (arg is null)
+            if (SelectedItem is null)
                 return;
 
             var mrs = await this.ShowConfirmAsync("Bạn có chắc muốn xoá dịch vụ?");
             if (!mrs)
                 return;
-            SelectedItems = new ObservableCollection<ItemReponse>(SelectedItems.Where(aa => aa != arg).ToArray());
+            SelectedItems = new ObservableCollection<ItemReponse>(SelectedItems.Where(aa => aa != SelectedItem).ToArray());
+            SelectedItem = SelectedItems.FirstOrDefault();
         }
         #endregion
 

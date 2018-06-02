@@ -132,7 +132,6 @@
     <BundleResource Include="Resources\add32.png" />
     <BundleResource Include="Resources\search32.png" />
     <BundleResource Include="Resources\check32.png" />
-    <BundleResource Include="Resources\mainbg.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
