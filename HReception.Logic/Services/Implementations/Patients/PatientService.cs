@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HReception.Core;
 using HReception.Logic.Context;
 using HReception.Logic.Context.EfModels;
 using HReception.Logic.Services.Interfaces.Common;

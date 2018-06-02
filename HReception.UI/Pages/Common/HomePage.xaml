@@ -34,7 +34,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Grid.Row="2" Text="Huỷ thao tác" Command="{Binding CancelCommand}" IsVisible="{Binding SelectMode}"/>
+            <Button Grid.Row="2" Text="Huỷ thao tác" Command="{Binding CancelCommand}" IsVisible="{Binding SelectMode}" Style="{StaticResource HightButtonStyle}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

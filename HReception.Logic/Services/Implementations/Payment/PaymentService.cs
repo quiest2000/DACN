@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HReception.Core;
 using HReception.Logic.Context;
 using HReception.Logic.Context.EfModels;
 using HReception.Logic.Context.Enum;
 using HReception.Logic.Services.Interfaces.Payment;
-using HReception.Logic.Utils.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace HReception.Logic.Services.Implementations.Payment

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converter="clr-namespace:HReception.UI.Utils.Converters;assembly=HReception.UI" x:Class="HReception.UI.Pages.Payment.SelectItemPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="check32.png" Order="Primary" Command="{Binding DoneCommand}" />
@@ -19,7 +19,28 @@
             <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Items}" HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                       <SwitchCell On="{Binding IsChecked}" Text="{Binding Display}"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto">
+                                </RowDefinition>
+                                <RowDefinition Height="Auto">
+                                </RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto">
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="*">
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="Auto">
+                                </ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ItemName}" Style="{StaticResource HightLightTextStyle}">
+                            </Label>
+                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding ItemCode}" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding UnitPrice, StringFormat='ĐG: {0:n0}'}" />
+                            <Switch Grid.Row="0" Grid.Column="2" IsToggled="{Binding IsChecked}">
+                            </Switch>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
