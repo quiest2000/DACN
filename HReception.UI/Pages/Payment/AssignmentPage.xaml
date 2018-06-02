@@ -13,7 +13,7 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Text="{Binding Patient.PatientCode, StringFormat='MSBN: {0}'}" Margin="5,5,5,0" HorizontalOptions="Fill" FontAttributes="Bold" />
             <Label Grid.Row="1" Grid.Column="0" Text="{Binding Patient.FullName, StringFormat='Họ tên:{0}'}" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Fill" FontAttributes="Bold" />
-            <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding SelectedItems}" HorizontalOptions="Fill">
+            <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding SelectedItems}" HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -37,18 +37,18 @@
                                     </Label>
                                     <Label Grid.Row="1" Grid.Column="0" Text="{Binding ItemCode}" />
                                     <Label Grid.Row="1" Grid.Column="1" Text="{Binding UnitPrice, StringFormat='ĐG: {0:n0}'}" />
-                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding Qty, StringFormat='SL: {0:n0}'}" />
+                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding Qty, StringFormat='SL: {0:n0}'}" HorizontalOptions="End" />
                                     <Label Grid.Row="1" Grid.Column="2" Text="{Binding Total, StringFormat='{0:n0} vnđ'}" Style="{StaticResource HightLightTextStyle}" />
                                 </Grid>
-                                </ViewCell.View>
+                            </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListView.Header>
-                    <Label Grid.Row="3" Text="{Binding Total, StringFormat='Tổng: {0:N0} vnđ'}" Margin="5,5,5,0" HorizontalOptions="End" HorizontalTextAlignment="End" FontAttributes="Italic" />
-                </ListView.Header>
+                <ListView.Footer>
+                    <Label Grid.Row="3" Text="{Binding Total, StringFormat='Tổng tiền: {0:N0} vnđ'}" Margin="5,5,5,0" HorizontalOptions="End" HorizontalTextAlignment="End" Style="{StaticResource HightLightTextStyle}" TextColor="{StaticResource HightlightColorPrimary}"/>
+                </ListView.Footer>
             </ListView>
-            <Button Grid.Row="3" Text="Lưu phiếu" Command="{Binding SaveCommand}"/>
+            <Button Grid.Row="3" Text="Lưu phiếu" Command="{Binding SaveCommand}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -19,10 +19,10 @@
             </Grid.ColumnDefinitions>
             
             <Label Grid.Row="1" Grid.Column="1" VerticalOptions="Center" Text="User" Margin="5" HorizontalOptions="End"/>
-            <Entry Grid.Row="1" Grid.Column="2" Text="{Binding UserName, UpdateSourceEventName=TextChanged}" Margin="5" HorizontalOptions="Fill"/>
+            <Entry Grid.Row="1" Grid.Column="2" Placeholder="Tên đăng nhập" Text="{Binding UserName, UpdateSourceEventName=TextChanged}" Margin="5" HorizontalOptions="Fill"/>
 
             <Label Grid.Row="2" Grid.Column="1" VerticalOptions="Center" Text="Password" Margin="5" HorizontalOptions="End"/>
-            <Entry Grid.Row="2" Grid.Column="2" Margin="5" IsPassword="true" Text="{Binding Password, UpdateSourceEventName=TextChanged}" HorizontalOptions="Fill"/>
+            <Entry Grid.Row="2" Grid.Column="2" Placeholder="mật khẩu" Margin="5" IsPassword="true" Text="{Binding Password, UpdateSourceEventName=TextChanged}" HorizontalOptions="Fill"/>
             <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Command="{Binding LoginCommand}" Text="Đăng nhập" Margin="5" VerticalOptions="Fill" />
             <ActivityIndicator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
             <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center" Margin="5" FontAttributes="Italic" Text="Phần mềm quản lý tiếp nhận và đăng ký dịch vụ" />

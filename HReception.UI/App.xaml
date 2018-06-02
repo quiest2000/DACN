@@ -30,6 +30,9 @@
             <Setter Property="Margin" Value="{StaticResource ThicknessPrimary}">
             </Setter>
         </Style>
+         <Style TargetType="ListView" ApplyToDerivedTypes="True">
+            <Setter Property="HasUnevenRows" Value="true"/>
+        </Style>
         <Style TargetType="Button" ApplyToDerivedTypes="True">
             <Setter Property="Margin" Value="{StaticResource ThicknessPrimary}">
             </Setter>

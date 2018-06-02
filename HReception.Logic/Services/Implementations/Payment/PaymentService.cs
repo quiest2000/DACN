@@ -7,6 +7,7 @@ using HReception.Logic.Context.EfModels;
 using HReception.Logic.Context.Enum;
 using HReception.Logic.Services.Interfaces.Payment;
 using Microsoft.EntityFrameworkCore;
+using HReception.Logic.Utils.Extensions;
 
 namespace HReception.Logic.Services.Implementations.Payment
 {
@@ -19,30 +20,30 @@ namespace HReception.Logic.Services.Implementations.Payment
             {
                 //using (var scope = new System.Transactions.TransactionScope())
                 //{
-                    var transaction = new Transaction
-                    {
-                        PatientCode = request.PatientCode,
-                        Amount = request.Amount,
-                        Date = now,
-                        Encrypt = now.Ticks.ToString(),
-                        Note = request.Note,
-                        ReferenceCode = now.Ticks.ToString(),
-                        Status = TransactionStatus.WaitingForPayment
-                    };
-                    context.Transactions.Add(transaction);
-                    context.SaveChanges();
-                    var details = request.ListItems.Select(aa => new TransactionDetail
-                    {
-                        TransactionId = transaction.Id,
-                        Note = aa.Note,
-                        Amount = aa.Amount,
-                        ItemCode = aa.ItemCode,
-                        Total = aa.Total,
-                        UnitName = aa.UnitName,
-                        UnitPrice = aa.UnitPrice,
-                    }).ToList();
-                    context.TransactionDetails.AddRange(details);
-                    context.SaveChanges();
+                var transaction = new Transaction
+                {
+                    PatientCode = request.PatientCode,
+                    Amount = request.Amount,
+                    Date = now,
+                    Encrypt = now.Ticks.ToString(),
+                    Note = request.Note,
+                    ReferenceCode = now.Ticks.ToString(),
+                    Status = TransactionStatus.WaitingForPayment
+                };
+                context.Transactions.Add(transaction);
+                context.SaveChanges();
+                var details = request.ListItems.Select(aa => new TransactionDetail
+                {
+                    TransactionId = transaction.Id,
+                    Note = aa.Note,
+                    Amount = aa.Amount,
+                    ItemCode = aa.ItemCode,
+                    Total = aa.Total,
+                    UnitName = aa.UnitName,
+                    UnitPrice = aa.UnitPrice,
+                }).ToList();
+                context.TransactionDetails.AddRange(details);
+                context.SaveChanges();
                 //    scope.Complete();
                 //}
             }
@@ -127,7 +128,7 @@ namespace HReception.Logic.Services.Implementations.Payment
                     ItemName = aa.ItemName,
                     UnitName = aa.UnitName,
                     UnitPrice = aa.UnitPrice,
-                    SearchField = aa.ItemCode.ToLower()
+                    SearchField = $"{aa.ItemCode.ToLower()} {aa.ItemName.ToNoneSign().ToLower()}"
                 }).ToList();
             }
             return rs;
