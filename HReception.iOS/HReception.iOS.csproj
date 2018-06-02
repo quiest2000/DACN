@@ -131,6 +131,7 @@
     <BundleResource Include="Resources\home32.png" />
     <BundleResource Include="Resources\add32.png" />
     <BundleResource Include="Resources\search32.png" />
+    <BundleResource Include="Resources\check32.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -236,10 +237,6 @@
     <ProjectReference Include="..\HReception.Logic\HReception.Logic.csproj">
       <Project>{8E39B5E6-6054-44ED-A6E1-300FE2074E7B}</Project>
       <Name>HReception.Logic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HReception.Core\HReception.Core.csproj">
-      <Project>{3F559623-965C-4F31-8280-4D7834D932BC}</Project>
-      <Name>HReception.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

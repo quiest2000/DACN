@@ -1,9 +1,12 @@
-﻿using Foundation;
+﻿using System.Resources;
+using Foundation;
 using HReception.UI;
 using UIKit;
 using FreshMvvm;
 using HReception.iOS.Services;
 using HReception.Logic.Context.Infrastructure;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace HReception.iOS
 {
@@ -25,6 +28,7 @@ namespace HReception.iOS
             SQLitePCL.Batteries_V2.Init();
             global::Xamarin.Forms.Forms.Init();
             PlatformDependencyRegistrar();
+            UIKit.UISwitch.Appearance.OnTintColor=Color.FromHex("#507A50").ToUIColor();
             LoadApplication(new App());
             return base.FinishedLaunching(app, options);
         }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HReception.UI.Pages.Payment.TransactionListPage" xmlns:converter="clr-namespace:HReception.UI.Utils.Converters;assembly=HReception.UI" xmlns:behaviors="clr-namespace:HReception.UI.Utils.Behaviors;assembly=HReception.UI">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="add32.png" Order="Primary" Command="{Binding GoToAssignmentPageCommand}"/>
@@ -16,9 +16,9 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Text="Chọn ngày" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
-            <DatePicker Grid.Row="0" Grid.Column="1" Date="{Binding SelectedDate}" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
-            <Button Grid.Row="0" Grid.Column="2" Command="{Binding SearchCommand}" Margin="5,5,5,0" VerticalOptions="Center" HorizontalOptions="Center" Image="search32.png" />
-            <Entry Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Placeholder="MSBN" Text="{Binding KeyWord}" Margin="5,5,5,0" VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
+            <DatePicker Grid.Row="0" Grid.Column="1" Date="{Binding SelectedDate}" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Fill" />
+            <Button Grid.Row="0" Grid.Column="2" Command="{Binding SearchCommand}" Margin="5,5,5,0" VerticalOptions="Center" HorizontalOptions="Center" Image="search32.png" Style="{StaticResource ImageOnlyButtonStyle}"/>
+            <Entry Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Placeholder="MSBN" Text="{Binding KeyWord}" Margin="5,5,5,0" VerticalOptions="Center" HorizontalOptions="Fill" />
             <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Transactions}" HasUnevenRows="true">
                 <ListView.Behaviors>
                     <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ViewDetailCommand}" Converter="{x:Static converter:ItemTappedArgToTransactionConverter.Instance}" />
@@ -39,7 +39,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Row="0" Grid.Column="0" VerticalOptions="Center" Text="{Binding Id, StringFormat='Id: {0}'}" />
                                 <Label Grid.Row="0" Grid.Column="1" VerticalOptions="Center" Text="{Binding PatientCode, StringFormat='MSBN: {0}'}" />
-                                <Label Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Text="{Binding PatientCode, StringFormat='{0:N0} vnđ'}" FontAttributes="Bold" />
+                                <Label Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Text="{Binding Amount, StringFormat='{0:N0} vnđ'}" FontAttributes="Bold" />
                                 <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Text="{Binding PatientName}" />
                                 <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Source="more50.png" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="20" HeightRequest="25" />
                             </Grid>

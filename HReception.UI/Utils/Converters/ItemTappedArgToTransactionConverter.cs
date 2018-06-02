@@ -19,4 +19,19 @@ namespace HReception.UI.Utils.Converters
             throw new NotImplementedException();
         }
     }
+
+    public class ItemTappedArgToProductConverter : IValueConverter
+    {
+        public static ItemTappedArgToProductConverter Instance = new ItemTappedArgToProductConverter();
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var eventArg = value as ItemTappedEventArgs;
+            return eventArg?.Item as ItemReponse; ;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

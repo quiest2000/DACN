@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using HReception.Logic.Services.Interfaces.Payment;
 using HReception.Logic.Utils.Extensions;
@@ -18,12 +19,12 @@ namespace HReception.UI.PageModels.Payment
         {
             _paymentService = paymentService;
         }
-
-        protected override void ViewIsAppearing(object sender, EventArgs e)
+        public override void Init(object initData)
         {
+            base.Init(initData);
+            CurrentPage.Title = "Chọn dịch vụ";
             _allitems = _paymentService.GetAllItems();
             Items = new ObservableCollection<ItemReponse>(_allitems);
-            base.ViewIsAppearing(sender, e);
         }
 
         public string SearchCode { get; set; }
@@ -49,5 +50,17 @@ namespace HReception.UI.PageModels.Payment
         }
         #endregion
 
+        #region DoneCommand
+
+        private ICommand _DoneCommand;
+
+        public ICommand DoneCommand => _DoneCommand ?? (_DoneCommand = new Command(async () => { await DoneCommandExecute(); }));
+
+        private async Task DoneCommandExecute()
+        {
+            await CoreMethods.PopPageModel(Items.Where(aa => aa.IsChecked).ToArray(), true);
+        }
+
+        #endregion
     }
 }

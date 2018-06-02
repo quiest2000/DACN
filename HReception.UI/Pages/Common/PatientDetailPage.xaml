@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HReception.UI.Pages.Common.PatientDetailPage" xmlns:converter="clr-namespace:HReception.UI.Utils.Converters;assembly=HReception.UI">
     <ContentPage.Content>
         <Grid RowSpacing="0">
@@ -24,25 +24,28 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Text="Mã số BN" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
-            <Label Grid.Row="0" Grid.Column="1" Text="{Binding CurrentPatient.PatientCode}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" FontAttributes="Bold" />
+            <Label Grid.Row="0" Grid.Column="1" Text="{Binding CurrentPatient.PatientCode}" Margin="5,5,5,0" HorizontalOptions="Fill" FontAttributes="Bold" 
+                   Style="{StaticResource HightLightTextStyle}"/>
             <Label Grid.Row="1" Grid.Column="0" Text="Họ và tên" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
-            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding CurrentPatient.FullName, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" IsEnabled="{Binding EditMode}" />
+            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding CurrentPatient.FullName, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="Fill" IsEnabled="{Binding EditMode}" />
             <Label Grid.Row="2" Grid.Column="0" Text="Điện thoại" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
-            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding CurrentPatient.Phone, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" IsEnabled="{Binding EditMode}" Keyboard="Telephone" />
+            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding CurrentPatient.Phone, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="Fill" IsEnabled="{Binding EditMode}" Keyboard="Telephone" />
             <!--            <Label Grid.Row="3" Grid.Column="0" Text="Địa chỉ" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start"/>-->
-            <!--            <Editor Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Text="{Binding CurrentPatient.FullAddress, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" IsEnabled="{Binding EditMode}"/>-->
+            <!--            <Editor Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Text="{Binding CurrentPatient.FullAddress, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="Fill" IsEnabled="{Binding EditMode}"/>-->
             <Label Grid.Row="4" Grid.Column="0" Text="Ngày sinh" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
-            <DatePicker Grid.Row="4" Grid.Column="1" Date="{Binding CurrentPatient.DoB, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" VerticalOptions="Center" IsEnabled="{Binding EditMode}" />
+            <DatePicker Grid.Row="4" Grid.Column="1" Date="{Binding CurrentPatient.DoB, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="Fill" VerticalOptions="Center" IsEnabled="{Binding EditMode}" />
             <Label Grid.Row="5" Grid.Column="0" Text="Giới tính" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
-            <Picker Grid.Row="5" Grid.Column="1" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Genders}" SelectedIndex="{Binding SelectedGenderIndex, Mode=TwoWay}" VerticalOptions="Center" IsEnabled="{Binding EditMode}" />
+            <Picker Grid.Row="5" Grid.Column="1" Margin="5,5,5,0" HorizontalOptions="Fill" ItemsSource="{Binding Genders}" SelectedIndex="{Binding SelectedGenderIndex, Mode=TwoWay}" VerticalOptions="Center" IsEnabled="{Binding EditMode}" />
             <Label Grid.Row="6" Grid.Column="0" Text="Email" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
-            <Entry Grid.Row="6" Grid.Column="1" Text="{Binding CurrentPatient.Email, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="FillAndExpand" VerticalOptions="Center" IsEnabled="{Binding EditMode}" Keyboard="Email" />
+            <Entry Grid.Row="6" Grid.Column="1" Text="{Binding CurrentPatient.Email, Mode=TwoWay}" Margin="5,5,5,0" HorizontalOptions="Fill" VerticalOptions="Center" IsEnabled="{Binding EditMode}" Keyboard="Email" />
 
-            <Button Text="Xóa bệnh nhân này" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalOptions="FillAndExpand" Command="{Binding DeleteCommand}" IsVisible="{Binding EditMode, Converter={x:Static converter:InverseBooleanConverter.Instance}}"/>
-            <Button Text="Bệnh nhân mới" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalOptions="FillAndExpand" Command="{Binding PrepareToCreateCommand}" IsVisible="{Binding EditMode, Converter={x:Static converter:InverseBooleanConverter.Instance}" />
-            <Button Text="Cập nhật thông tin" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalOptions="FillAndExpand" Command="{Binding PrepareToEditCommand}" IsVisible="{Binding EditMode, Converter={x:Static converter:InverseBooleanConverter.Instance}" />
-            <Button Text="Bỏ qua" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}" IsVisible="{Binding EditMode}" />
-            <Button Text="Lưu" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalOptions="FillAndExpand" Command="{Binding SaveCommand}" IsVisible="{Binding EditMode}" />
+            <Button Text="Xóa bệnh nhân này" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalOptions="Fill" Command="{Binding DeleteCommand}" IsVisible="{Binding EditMode, Converter={x:Static converter:InverseBooleanConverter.Instance}}"
+                   Style="{StaticResource HightButtonStyle}" />
+            <Button Text="Bệnh nhân mới" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalOptions="Fill" Command="{Binding PrepareToCreateCommand}" IsVisible="{Binding EditMode, Converter={x:Static converter:InverseBooleanConverter.Instance}}" />
+            <Button Text="Cập nhật thông tin" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalOptions="Fill" Command="{Binding PrepareToEditCommand}" IsVisible="{Binding EditMode, Converter={x:Static converter:InverseBooleanConverter.Instance}}"/> 
+            <Button Text="Bỏ qua" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalOptions="Fill" Command="{Binding CancelCommand}" IsVisible="{Binding EditMode}" 
+                    Style="{StaticResource HightButtonStyle}"/>
+            <Button Text="Lưu" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalOptions="Fill" Command="{Binding SaveCommand}" IsVisible="{Binding EditMode}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

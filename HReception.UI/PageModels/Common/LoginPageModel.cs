@@ -25,7 +25,7 @@ namespace HReception.UI.PageModels.Common
 
         public override void Init(object initData)
         {
-            CurrentPage.Title="Đăng nhập";
+            CurrentPage.Title = "Đăng nhập";
             base.Init(initData);
         }
 
@@ -49,15 +49,22 @@ namespace HReception.UI.PageModels.Common
         /// </summary>
         private async Task LoginCommandExecute()
         {
-            IsBusy = true;
-            var rs = await _securityService.Login(UserName, Password);
-            IsBusy = false;
-            if (!rs.IsValid)
+            try
             {
-                await CoreMethods.DisplayAlert("Warning", "Tên đăng nhập hoặc mật khẩu không đúng.", "Ok");
-                return;
+                IsBusy = true;
+                var rs = await _securityService.Login(UserName, Password);
+                IsBusy = false;
+                if (!rs.IsValid)
+                {
+                    await CoreMethods.DisplayAlert("Warning", "Tên đăng nhập hoặc mật khẩu không đúng.", "Ok");
+                    return;
+                }
+                this.GoToMainPage();
             }
-            this.GoToMainPage();
+            finally
+            {
+                IsBusy = false;
+            }
         }
         #endregion
 

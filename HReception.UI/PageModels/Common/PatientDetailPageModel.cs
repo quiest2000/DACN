@@ -51,7 +51,7 @@ namespace HReception.UI.PageModels.Common
                     if (CurrentPatient != null && !Genders.IsNullOrEmpty())
                         CurrentPatient.Gender = Genders.ElementAt(value);
                 }
-                catch (Exception ex)
+                catch
                 {
                     //ignored
                 }
@@ -74,11 +74,19 @@ namespace HReception.UI.PageModels.Common
         {
             var mrs = await this.ShowConfirmAsync("Xoá thông tin bệnh nhân?");
             if (!mrs) return;
-            var rs = await _patientService.Delete(CurrentPatient.PatientCode);
-            if (!rs)
+            try
             {
-                await this.ShowWarningAsync("Không thể xóa bệnh nhân. Vui lòng thử lại sau, cảm ơn");
-                return;
+                IsBusy = true;
+                var rs = await _patientService.Delete(CurrentPatient.PatientCode);
+                if (!rs)
+                {
+                    await this.ShowWarningAsync("Không thể xóa bệnh nhân. Vui lòng thử lại sau, cảm ơn");
+                    return;
+                }
+            }
+            finally
+            {
+                IsBusy = false;
             }
             await CoreMethods.PopPageModel(data:true);
         }
@@ -132,50 +140,60 @@ namespace HReception.UI.PageModels.Common
                 await this.ShowInfoAsync("Vui lòng nhập họ tên bệnh nhân");
                 return;
             }
-
-            if (IsAddNew)
+           
+            try
             {
-                var rs = await _patientService.Register(CurrentPatient.MapTo<NewPatientRequest>());
-                switch (rs.Result)
+                IsBusy = true;
+                if (IsAddNew)
                 {
-                    case NewPatientResults.Ok:
-                        //await _messageService.ShowInformationAsync("Tạo bệnh nhân thành công.");
-                        EditMode = false;
-                        IsAddNew = false;
-                        await CoreMethods.PopPageModel(data: true);//data changed
-                        break;
-                    case NewPatientResults.Failed:
-                        await this.ShowWarningAsync("Không thể tạo BN, vui lòng thử lại sau");
-                        break;
-                    case NewPatientResults.Existed:
-                        await this.ShowWarningAsync(
-                            "Mã số bệnh nhân này đã tồn tại. Vui lòng nhập mã khác, cảm ơn");
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    var rs = await _patientService.Register(CurrentPatient.MapTo<NewPatientRequest>());
+                    IsBusy = false;
+                    switch (rs.Result)
+                    {
+                        case NewPatientResults.Ok:
+                            //await _messageService.ShowInformationAsync("Tạo bệnh nhân thành công.");
+                            EditMode = false;
+                            IsAddNew = false;
+                            await CoreMethods.PopPageModel(data: true);//data changed
+                            break;
+                        case NewPatientResults.Failed:
+                            await this.ShowWarningAsync("Không thể tạo BN, vui lòng thử lại sau");
+                            break;
+                        case NewPatientResults.Existed:
+                            await this.ShowWarningAsync(
+                                "Mã số bệnh nhân này đã tồn tại. Vui lòng nhập mã khác, cảm ơn");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                else
+                {
+                    var updateRs = await _patientService.Update(CurrentPatient.MapTo<UpdatePatientRequest>());
+                    IsBusy = false;
+                    switch (updateRs.Result)
+                    {
+                        case UpdatePatientResults.NotFound:
+                            await this.ShowWarningAsync(
+                                $"Không tìm thấy mã số bệnh nhân [{CurrentPatient.PatientCode}]");
+                            break;
+                        case UpdatePatientResults.Failed:
+                            await this.ShowWarningAsync("Không thể cập nhật thông tin BN, vui lòng thử lại sau");
+                            break;
+                        case UpdatePatientResults.Ok:
+                            //await _messageService.ShowInformationAsync("Cập nhật thông tin bệnh nhân thành công.");
+                            EditMode = false;
+                            IsAddNew = false;
+                            await CoreMethods.PopPageModel(data: true);//data changed
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
-            else
+            finally
             {
-                var updateRs = await _patientService.Update(CurrentPatient.MapTo<UpdatePatientRequest>());
-                switch (updateRs.Result)
-                {
-                    case UpdatePatientResults.NotFound:
-                        await this.ShowWarningAsync(
-                            $"Không tìm thấy mã số bệnh nhân [{CurrentPatient.PatientCode}]");
-                        break;
-                    case UpdatePatientResults.Failed:
-                        await this.ShowWarningAsync("Không thể cập nhật thông tin BN, vui lòng thử lại sau");
-                        break;
-                    case UpdatePatientResults.Ok:
-                        //await _messageService.ShowInformationAsync("Cập nhật thông tin bệnh nhân thành công.");
-                        EditMode = false;
-                        IsAddNew = false;
-                        await CoreMethods.PopPageModel(data: true);//data changed
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                IsBusy = false;
             }
         }
 

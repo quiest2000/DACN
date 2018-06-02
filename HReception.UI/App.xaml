@@ -2,16 +2,67 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HReception.UI.App">
     <Application.Resources>
         <!--values-->
-        <Color x:Key="NavigationPrimary">#2196F3</Color>
-        <Color x:Key="HightlightPrimary">#7c0c0c</Color>
+        <Color x:Key="NavigationBackgroundPrimary">#507A50</Color>
+        <Color x:Key="HightlightColorPrimary">#7c0c0c</Color>
+        <Color x:Key="MainBorderColor">#bcbcbc</Color>
+        <!--        margins-->
+        <Thickness x:Key="ThicknessPrimary">3,3,3,3</Thickness>
+        <!--        images-->
         <!--globale styles-->
         <Style TargetType="NavigationPage">
-            <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+            <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationBackgroundPrimary}" />
             <Setter Property="BarTextColor" Value="White" />
         </Style>
-        <!--<Style TargetType="Button">
-            <Setter Property="BackgroundColor" Value="{StaticResource HightlightPrimary}" />
-        </Style>-->
+
+        <Style TargetType="Label" ApplyToDerivedTypes="True">
+            <Setter Property="Margin" Value="{StaticResource ThicknessPrimary}">
+            </Setter>
+        </Style>
+        <Style TargetType="Entry" ApplyToDerivedTypes="True">
+            <Setter Property="Margin" Value="{StaticResource ThicknessPrimary}">
+            </Setter>
+        </Style>
+        <Style TargetType="DatePicker" ApplyToDerivedTypes="True">
+            <Setter Property="Margin" Value="{StaticResource ThicknessPrimary}">
+            </Setter>
+        </Style>
+        <Style TargetType="Switch" ApplyToDerivedTypes="True">
+            <Setter Property="Margin" Value="{StaticResource ThicknessPrimary}">
+            </Setter>
+        </Style>
+         <Style TargetType="ListView" ApplyToDerivedTypes="True">
+            <Setter Property="HasUnevenRows" Value="true"/>
+        </Style>
+        <Style TargetType="Button" ApplyToDerivedTypes="True">
+            <Setter Property="Margin" Value="{StaticResource ThicknessPrimary}">
+            </Setter>
+            <Setter Property="BackgroundColor" Value="{StaticResource NavigationBackgroundPrimary}" />
+            <Setter Property="TextColor" Value="White">
+            </Setter>
+            <Setter Property="HorizontalOptions" Value="Fill">
+            </Setter>
+            <Setter Property="VerticalOptions" Value="Center">
+            </Setter>
+            <Setter Property="BorderWidth" Value="1">
+            </Setter>
+            <Setter Property="CornerRadius" Value="4">
+            </Setter>
+            <Setter Property="BorderColor" Value="{StaticResource MainBorderColor}">
+            </Setter>
+        </Style>
         <!--spec styles-->
+        <Style TargetType="Button" x:Key="HightButtonStyle">
+            <Setter Property="BackgroundColor" Value="{StaticResource HightlightColorPrimary}" />
+        </Style>
+        <Style TargetType="Button" x:Key="ImageOnlyButtonStyle">
+            <Setter Property="BackgroundColor" Value="Transparent">
+            </Setter>
+            <Setter Property="BorderWidth" Value="0">
+            </Setter>
+        </Style>
+        <Style TargetType="Label" x:Key="HightLightTextStyle">
+            <Setter Property="FontAttributes" Value="Bold">
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

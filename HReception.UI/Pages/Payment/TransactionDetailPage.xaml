@@ -1,5 +1,53 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HReception.UI.Pages.Payment.TransactionDetailPage">
     <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="{Binding Transaction.PatientCode, StringFormat='MSBN: {0}'}" />
+            <Label Grid.Row="1" Text="{Binding Transaction.PatientName, StringFormat='Họ tên: {0}'}" />
+            <Label Grid.Row="2" Text="{Binding Transaction.Id, StringFormat='Mã giao dịch: {0}'}" />
+            <ListView Grid.Row="4" HorizontalOptions="Fill" ItemsSource="{Binding Details}" HasUnevenRows="true">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto">
+                                        </RowDefinition>
+                                        <RowDefinition Height="Auto">
+                                        </RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="Auto">
+                                        </ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ItemName}" Style="{StaticResource HightLightTextStyle}">
+                                    </Label>
+                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding ItemCode}" />
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding UnitPrice, StringFormat='ĐG: {0:n0}'}" />
+                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding Amount, StringFormat='SL: {0:n0}'}" HorizontalOptions="End" />
+                                    <Label Grid.Row="1" Grid.Column="2" Text="{Binding Total, StringFormat='{0:n0} vnđ'}" Style="{StaticResource HightLightTextStyle}" />
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <Label Grid.Row="3" Text="{Binding Transaction.Amount, StringFormat='Tổng tiền giao dịch: {0:N0} vnđ'}" HorizontalOptions="End" HorizontalTextAlignment="End" Style="{StaticResource HightLightTextStyle}" 
+                           TextColor="{StaticResource HightlightColorPrimary}"/>
+                </ListView.Footer>
+            </ListView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

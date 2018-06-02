@@ -3,7 +3,7 @@
     public class TransactionDetailDto
     {
         public int Id { get; set; }
-
+        public string Display => $"{ItemCode}: {ItemName}";
         public int TransactionId { get; set; }
 
         /// <summary>

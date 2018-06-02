@@ -11,13 +11,13 @@ namespace HReception.Logic.Utils.Extensions
             return src == null || !src.Any();
         }
 
-        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> range)
-        {
-            Contract.Requires(range != null);
-            Contract.Requires(collection != null);
+        //public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> range)
+        //{
+        //    Contract.Requires(range != null);
+        //    Contract.Requires(collection != null);
 
-            foreach (T curItem in range)
-                collection.Add(curItem);
-        }
+        //    foreach (T curItem in range)
+        //        collection.Add(curItem);
+        //}
     }
 }

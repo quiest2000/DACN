@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HReception.Core;
 using HReception.Logic.Context;
 using HReception.Logic.Context.EfModels;
 using HReception.Logic.Context.Enum;
 using HReception.Logic.Services.Interfaces.Payment;
-using HReception.Logic.Utils.Extensions;
 using Microsoft.EntityFrameworkCore;
+using HReception.Logic.Utils.Extensions;
 
 namespace HReception.Logic.Services.Implementations.Payment
 {
@@ -19,32 +18,34 @@ namespace HReception.Logic.Services.Implementations.Payment
             var now = DateTime.Now;
             using (var context = SimulatorContext.Create())
             {
-                using (var scope = new System.Transactions.TransactionScope())
+                //using (var scope = new System.Transactions.TransactionScope())
+                //{
+                var transaction = new Transaction
                 {
-                    var transaction = new Transaction
-                    {
-                        PatientCode = request.PatientCode,
-                        Amount = request.Amount,
-                        Date = now,
-                        Encrypt = now.Ticks.ToString(),
-                        Note = request.Note,
-                        ReferenceCode = now.Ticks.ToString(),
-                        Status = TransactionStatus.WaitingForPayment
-                    };
-                    transaction.Details.AddRange(request.ListItems.Select(aa => new TransactionDetail
-                    {
-                        Transaction = transaction,
-                        Note = aa.Note,
-                        Amount = aa.Amount,
-                        ItemCode = aa.ItemCode,
-                        Total = aa.Total,
-                        UnitName = aa.UnitName,
-                        UnitPrice = aa.UnitPrice,
-                    }));
-                    context.Transactions.Add(transaction);
-                    context.SaveChanges();
-                    scope.Complete();
-                }
+                    PatientCode = request.PatientCode,
+                    Amount = request.Amount,
+                    Date = now,
+                    Encrypt = now.Ticks.ToString(),
+                    Note = request.Note,
+                    ReferenceCode = now.Ticks.ToString(),
+                    Status = TransactionStatus.WaitingForPayment
+                };
+                context.Transactions.Add(transaction);
+                context.SaveChanges();
+                var details = request.ListItems.Select(aa => new TransactionDetail
+                {
+                    TransactionId = transaction.Id,
+                    Note = aa.Note,
+                    Amount = aa.Amount,
+                    ItemCode = aa.ItemCode,
+                    Total = aa.Total,
+                    UnitName = aa.UnitName,
+                    UnitPrice = aa.UnitPrice,
+                }).ToList();
+                context.TransactionDetails.AddRange(details);
+                context.SaveChanges();
+                //    scope.Complete();
+                //}
             }
 
             return new NewTransactionReponse { Result = NewTransactionResult.Succeeded };
@@ -127,7 +128,7 @@ namespace HReception.Logic.Services.Implementations.Payment
                     ItemName = aa.ItemName,
                     UnitName = aa.UnitName,
                     UnitPrice = aa.UnitPrice,
-                    SearchField = aa.ItemCode.ToLower()
+                    SearchField = $"{aa.ItemCode.ToLower()} {aa.ItemName.ToNoneSign().ToLower()}"
                 }).ToList();
             }
             return rs;
