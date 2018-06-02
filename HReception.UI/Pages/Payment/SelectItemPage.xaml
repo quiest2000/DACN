@@ -19,28 +19,30 @@
             <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Items}" HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto">
-                                </RowDefinition>
-                                <RowDefinition Height="Auto">
-                                </RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto">
-                                </ColumnDefinition>
-                                <ColumnDefinition Width="*">
-                                </ColumnDefinition>
-                                <ColumnDefinition Width="Auto">
-                                </ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ItemName}" Style="{StaticResource HightLightTextStyle}">
-                            </Label>
-                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding ItemCode}" />
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding UnitPrice, StringFormat='ĐG: {0:n0}'}" />
-                            <Switch Grid.Row="0" Grid.Column="2" IsToggled="{Binding IsChecked}">
-                            </Switch>
-                        </Grid>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto">
+                                        </RowDefinition>
+                                        <RowDefinition Height="Auto">
+                                        </RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="Auto">
+                                        </ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ItemName}" Style="{StaticResource HightLightTextStyle}"/>
+                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding ItemCode}" />
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding UnitPrice, StringFormat='- ĐG: {0:n0}'}" />
+                                    <Switch Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" IsToggled="{Binding IsChecked}"/>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

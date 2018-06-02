@@ -17,7 +17,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Text="Chọn ngày" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
             <DatePicker Grid.Row="0" Grid.Column="1" Date="{Binding SelectedDate}" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Fill" />
-            <Button Grid.Row="0" Grid.Column="2" Command="{Binding SearchCommand}" Margin="5,5,5,0" VerticalOptions="Center" HorizontalOptions="Center" Image="search32.png" />
+            <Button Grid.Row="0" Grid.Column="2" Command="{Binding SearchCommand}" Margin="5,5,5,0" VerticalOptions="Center" HorizontalOptions="Center" Image="search32.png" Style="{StaticResource ImageOnlyButtonStyle}"/>
             <Entry Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Placeholder="MSBN" Text="{Binding KeyWord}" Margin="5,5,5,0" VerticalOptions="Center" HorizontalOptions="Fill" />
             <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Transactions}" HasUnevenRows="true">
                 <ListView.Behaviors>

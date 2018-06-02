@@ -8,8 +8,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" HorizontalOptions="Center" Text="{Binding CurrentUser.DisplayName}" FontAttributes="Bold" Margin="5" />
-            <Button Grid.Row="1" HorizontalOptions="Center" Text="Đăng xuất" Margin="5" Command="{Binding LogoutCommand}" Style="{StaticResource HightButtonStyle}"/>
+            <Label Grid.Row="0" HorizontalOptions="Center" Text="{Binding CurrentUser.DisplayName}" Style="{StaticResource HightLightTextStyle}"/>
+            <Button Grid.Row="1" Text="Đăng xuất" Margin="5" Command="{Binding LogoutCommand}" Style="{StaticResource HightButtonStyle}"/>
             <Label Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" Margin="5" FontAttributes="Italic" Text="Phần mềm quản lý tiếp nhận và đăng ký dịch vụ" />
         </Grid>
     </ContentPage.Content>

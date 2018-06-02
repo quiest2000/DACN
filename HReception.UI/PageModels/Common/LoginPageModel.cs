@@ -25,7 +25,8 @@ namespace HReception.UI.PageModels.Common
 
         public override void Init(object initData)
         {
-            CurrentPage.Title="Đăng nhập";
+            CurrentPage.Title = "Đăng nhập";
+            NavigationPage.SetHasNavigationBar(CurrentPage, false);
             base.Init(initData);
         }
 
@@ -64,7 +65,7 @@ namespace HReception.UI.PageModels.Common
             finally
             {
                 IsBusy = false;
-            }           
+            }
         }
         #endregion
 

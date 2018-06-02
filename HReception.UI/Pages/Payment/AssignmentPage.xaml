@@ -16,35 +16,39 @@
             <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding SelectedItems}" HorizontalOptions="Fill">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto">
-                                </RowDefinition>
-                                <RowDefinition Height="Auto">
-                                </RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto">
-                                </ColumnDefinition>
-                                <ColumnDefinition Width="*">
-                                </ColumnDefinition>
-                                <ColumnDefinition Width="Auto">
-                                </ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ItemName}" Style="{StaticResource HightLightTextStyle}">
-                            </Label>
-                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding ItemCode}" />
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding UnitPrice, StringFormat='ĐG: {0:n0}'}" />
-                            <Label Grid.Row="0" Grid.Column="2" Text="{Binding Qty, StringFormat='SL: {0:n0}'}" />
-                            <Label Grid.Row="1" Grid.Column="2" Text="{Binding Total, StringFormat='{0:n0} vnđ'}" Style="{StaticResource HightLightTextStyle}" />
-                        </Grid>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto">
+                                        </RowDefinition>
+                                        <RowDefinition Height="Auto">
+                                        </RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="Auto">
+                                        </ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ItemName}" Style="{StaticResource HightLightTextStyle}">
+                                    </Label>
+                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding ItemCode}" />
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding UnitPrice, StringFormat='ĐG: {0:n0}'}" />
+                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding Qty, StringFormat='SL: {0:n0}'}" />
+                                    <Label Grid.Row="1" Grid.Column="2" Text="{Binding Total, StringFormat='{0:n0} vnđ'}" Style="{StaticResource HightLightTextStyle}" />
+                                </Grid>
+                                </ViewCell.View>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.Header>
                     <Label Grid.Row="3" Text="{Binding Total, StringFormat='Tổng: {0:N0} vnđ'}" Margin="5,5,5,0" HorizontalOptions="End" HorizontalTextAlignment="End" FontAttributes="Italic" />
                 </ListView.Header>
             </ListView>
-            <Button Grid.Row="3" Text="Lưu phiếu" Command="{Binding SaveCommand}" HorizontalOptions="CenterAndExpand" />
+            <Button Grid.Row="3" Text="Lưu phiếu" Command="{Binding SaveCommand}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
