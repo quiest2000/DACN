@@ -15,9 +15,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Text="{Binding Patient.PatientCode, StringFormat='MSBN: {0}'}" Margin="5,5,5,0" HorizontalOptions="Fill" FontAttributes="Bold" />
-            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Patient.FullName, StringFormat='Họ tên:{0}'}" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Fill" FontAttributes="Bold" />
-            <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding SelectedItems}" HasUnevenRows="true">
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Patient.PatientCode, StringFormat='MSBN: {0}'}" Margin="5,5,5,0" HorizontalOptions="Fill" FontAttributes="Bold" />
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Patient.FullName, StringFormat='Họ tên:{0}'}" Margin="5,5,0,0" VerticalOptions="Center" HorizontalOptions="Fill" FontAttributes="Bold" />
+            <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding SelectedItems}" HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
