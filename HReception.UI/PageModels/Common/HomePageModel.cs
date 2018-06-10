@@ -154,16 +154,15 @@ namespace HReception.UI.PageModels.Common
         }
 
         #endregion
-
         #region NewPatientCommand
 
-        private ICommand _newPatientCommand;
+        private ICommand _NewPatientCommand;
 
-        public ICommand NewPatientCommand => _newPatientCommand ?? (_newPatientCommand = new Command(NewPatientCommandExecute));
+        public ICommand NewPatientCommand => _NewPatientCommand ?? (_NewPatientCommand = new Command(async () => { await NewPatientCommandExecute(); }));
 
-        private void NewPatientCommandExecute()
+        private async Task NewPatientCommandExecute()
         {
-            var detailPage = FreshPageModelResolver.ResolvePageModel<PatientDetailPageModel>(true);
+            await CoreMethods.PushPageModel<PatientDetailPageModel>(data: true);
         }
 
         #endregion

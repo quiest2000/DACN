@@ -15,7 +15,7 @@ namespace HReception.UI.PageModels.Common
     public class PatientDetailPageModel : PageModelBase
     {
         private PatientDto _cachePatient;
-
+        private bool _isAddNewMode;
         private readonly IPatientService _patientService;
         public PatientDetailPageModel(IPatientService patientService)
         {
@@ -34,6 +34,7 @@ namespace HReception.UI.PageModels.Common
             else
             {
                 CurrentPage.Title = "BN mới";
+                _isAddNewMode = true;
                 //add new patient
                 PrepareToCreateCommand.Execute(null);
             }
@@ -149,7 +150,16 @@ namespace HReception.UI.PageModels.Common
                 await this.ShowInfoAsync("Vui lòng nhập họ tên bệnh nhân");
                 return;
             }
-
+            if (!CurrentPatient.Phone.IsNullOrEmpty() && !CurrentPatient.Phone.IsValidPhoneNumber())
+            {
+                await this.ShowInfoAsync("Số điện thoại không hợp lệ");
+                return;
+            }
+            if (!CurrentPatient.Email.IsNullOrEmpty() && !CurrentPatient.Email.IsValidEmail())
+            {
+                await this.ShowInfoAsync("Email không hợp ");
+                return;
+            }
             try
             {
                 IsBusy = true;
@@ -212,13 +222,20 @@ namespace HReception.UI.PageModels.Common
 
         private ICommand _cancelCommand;
 
-        public ICommand CancelCommand => _cancelCommand ?? (_cancelCommand = new Command(CancelCommandExecute));
+        public ICommand CancelCommand => _cancelCommand ?? (_cancelCommand = new Command(async () => { await CancelCommandExecute(); }));
 
-        private void CancelCommandExecute()
+        private async Task CancelCommandExecute()
         {
-            EditMode = false;
-            IsAddNew = false;
-            CurrentPatient = new PatientDto(_cachePatient);
+            if (_isAddNewMode)
+            {
+                await CoreMethods.PopPageModel();
+            }
+            else
+            {
+                EditMode = false;
+                IsAddNew = false;
+                CurrentPatient = new PatientDto(_cachePatient);
+            }
         }
 
         #endregion
