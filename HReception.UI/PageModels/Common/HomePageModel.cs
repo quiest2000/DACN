@@ -6,6 +6,7 @@ using System.Windows.Input;
 using HReception.Logic.Services.Interfaces.Patients;
 using HReception.Logic.Utils.Extensions;
 using Xamarin.Forms;
+using FreshMvvm;
 
 namespace HReception.UI.PageModels.Common
 {
@@ -80,6 +81,7 @@ namespace HReception.UI.PageModels.Common
         #endregion
 
         #region Commands
+
         #region CancelCommand
 
         private ICommand _CancelCommand;
@@ -153,6 +155,18 @@ namespace HReception.UI.PageModels.Common
 
         #endregion
 
+        #region NewPatientCommand
+
+        private ICommand _newPatientCommand;
+
+        public ICommand NewPatientCommand => _newPatientCommand ?? (_newPatientCommand = new Command(NewPatientCommandExecute));
+
+        private void NewPatientCommandExecute()
+        {
+            var detailPage = FreshPageModelResolver.ResolvePageModel<PatientDetailPageModel>(true);
+        }
+
+        #endregion
         #endregion
     }
 }

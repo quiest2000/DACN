@@ -23,11 +23,20 @@ namespace HReception.UI.PageModels.Common
         }
         public override void Init(object initData)
         {
-            CurrentPage.Title = "Chi tiết";
-
-            CurrentPatient = _cachePatient = initData as PatientDto;
-            SelectedGenderIndex = Genders.IndexOf(CurrentPatient.Gender);
             base.Init(initData);
+
+            if (initData is PatientDto)
+            {
+                CurrentPage.Title = "Chi tiết";
+                CurrentPatient = _cachePatient = initData as PatientDto;
+                SelectedGenderIndex = Genders.IndexOf(CurrentPatient.Gender);
+            }
+            else
+            {
+                CurrentPage.Title = "BN mới";
+                //add new patient
+                PrepareToCreateCommand.Execute(null);
+            }
         }
         protected override void ViewIsAppearing(object sender, EventArgs e)
         {
@@ -57,7 +66,7 @@ namespace HReception.UI.PageModels.Common
                 }
             }
         }
-       
+
 
         public bool EditMode { get; set; }
         public bool IsAddNew { get; set; }
@@ -88,7 +97,7 @@ namespace HReception.UI.PageModels.Common
             {
                 IsBusy = false;
             }
-            await CoreMethods.PopPageModel(data:true);
+            await CoreMethods.PopPageModel(data: true);
         }
 
         #endregion
@@ -120,7 +129,7 @@ namespace HReception.UI.PageModels.Common
             CurrentPatient = new PatientDto
             {
                 PatientCode = "auto_generated",
-                DoB = new DateTime(1990,1,1) ,
+                DoB = new DateTime(1990, 1, 1),
                 Gender = Genders.FirstOrDefault()
             };
         }
@@ -140,7 +149,7 @@ namespace HReception.UI.PageModels.Common
                 await this.ShowInfoAsync("Vui lòng nhập họ tên bệnh nhân");
                 return;
             }
-           
+
             try
             {
                 IsBusy = true;
