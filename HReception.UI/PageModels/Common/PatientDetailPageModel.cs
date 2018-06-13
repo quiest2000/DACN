@@ -15,7 +15,7 @@ namespace HReception.UI.PageModels.Common
     public class PatientDetailPageModel : PageModelBase
     {
         private PatientDto _cachePatient;
-
+        private bool _isAddNewMode;
         private readonly IPatientService _patientService;
         public PatientDetailPageModel(IPatientService patientService)
         {
@@ -23,11 +23,21 @@ namespace HReception.UI.PageModels.Common
         }
         public override void Init(object initData)
         {
-            CurrentPage.Title = "Chi tiết";
-
-            CurrentPatient = _cachePatient = initData as PatientDto;
-            SelectedGenderIndex = Genders.IndexOf(CurrentPatient.Gender);
             base.Init(initData);
+
+            if (initData is PatientDto)
+            {
+                CurrentPage.Title = "Chi tiết";
+                CurrentPatient = _cachePatient = initData as PatientDto;
+                SelectedGenderIndex = Genders.IndexOf(CurrentPatient.Gender);
+            }
+            else
+            {
+                CurrentPage.Title = "BN mới";
+                _isAddNewMode = true;
+                //add new patient
+                PrepareToCreateCommand.Execute(null);
+            }
         }
         protected override void ViewIsAppearing(object sender, EventArgs e)
         {
@@ -57,7 +67,7 @@ namespace HReception.UI.PageModels.Common
                 }
             }
         }
-       
+
 
         public bool EditMode { get; set; }
         public bool IsAddNew { get; set; }
@@ -88,7 +98,7 @@ namespace HReception.UI.PageModels.Common
             {
                 IsBusy = false;
             }
-            await CoreMethods.PopPageModel(data:true);
+            await CoreMethods.PopPageModel(data: true);
         }
 
         #endregion
@@ -120,7 +130,7 @@ namespace HReception.UI.PageModels.Common
             CurrentPatient = new PatientDto
             {
                 PatientCode = "auto_generated",
-                DoB = new DateTime(1990,1,1) ,
+                DoB = new DateTime(1990, 1, 1),
                 Gender = Genders.FirstOrDefault()
             };
         }
@@ -140,7 +150,16 @@ namespace HReception.UI.PageModels.Common
                 await this.ShowInfoAsync("Vui lòng nhập họ tên bệnh nhân");
                 return;
             }
-           
+            if (!CurrentPatient.Phone.IsNullOrEmpty() && !CurrentPatient.Phone.IsValidPhoneNumber())
+            {
+                await this.ShowInfoAsync("Số điện thoại không hợp lệ");
+                return;
+            }
+            if (!CurrentPatient.Email.IsNullOrEmpty() && !CurrentPatient.Email.IsValidEmail())
+            {
+                await this.ShowInfoAsync("Email không hợp ");
+                return;
+            }
             try
             {
                 IsBusy = true;
@@ -203,13 +222,20 @@ namespace HReception.UI.PageModels.Common
 
         private ICommand _cancelCommand;
 
-        public ICommand CancelCommand => _cancelCommand ?? (_cancelCommand = new Command(CancelCommandExecute));
+        public ICommand CancelCommand => _cancelCommand ?? (_cancelCommand = new Command(async () => { await CancelCommandExecute(); }));
 
-        private void CancelCommandExecute()
+        private async Task CancelCommandExecute()
         {
-            EditMode = false;
-            IsAddNew = false;
-            CurrentPatient = new PatientDto(_cachePatient);
+            if (_isAddNewMode)
+            {
+                await CoreMethods.PopPageModel();
+            }
+            else
+            {
+                EditMode = false;
+                IsAddNew = false;
+                CurrentPatient = new PatientDto(_cachePatient);
+            }
         }
 
         #endregion

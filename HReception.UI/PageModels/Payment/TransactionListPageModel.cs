@@ -42,7 +42,8 @@ namespace HReception.UI.PageModels.Payment
         public override void Init(object initData)
         {
             CurrentPage.Title = "DS giao dịch";
-            SelectedDate = DateTime.Now;
+            From = DateTime.Now;
+            To = DateTime.Now;
             base.Init(initData);
         }
         protected override void ViewIsAppearing(object sender, EventArgs e)
@@ -56,7 +57,9 @@ namespace HReception.UI.PageModels.Payment
 
         #region Properties
 
-        public DateTime SelectedDate { get; set; }
+        //public DateTime SelectedDate { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
         public string KeyWord { get; set; }
         public IList<TransactionReponse> Transactions { get; set; }
         #endregion
@@ -96,7 +99,7 @@ namespace HReception.UI.PageModels.Payment
             try
             {
                 IsBusy = true;
-                Transactions = await _paymentService.GetTransactions(SelectedDate.Date, SelectedDate.Date.AddDays(1), 0, KeyWord.IsNullOrEmpty() ? string.Empty : KeyWord.Trim());
+                Transactions = await _paymentService.GetTransactions(From.Date, To.Date.AddDays(1), 0, KeyWord.IsNullOrEmpty() ? string.Empty : KeyWord.Trim());
                 IsBusy = false;
             }
             finally

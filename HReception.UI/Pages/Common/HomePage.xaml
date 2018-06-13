@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:behaviors="clr-namespace:HReception.UI.Utils.Behaviors;assembly=HReception.UI" xmlns:converter="clr-namespace:HReception.UI.Utils.Converters;assembly=HReception.UI" x:Class="HReception.UI.Pages.Common.HomePage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="add32.png" Order="Primary" Command="{Binding NewPatientCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -25,7 +28,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding FullName}" Style="{StaticResource HightLightTextStyle}"/>
+                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding FullName}" Style="{StaticResource HightLightTextStyle}" />
                                     <Label Grid.Row="1" Grid.Column="0" Text="{Binding PatientCode}" />
                                     <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Source="more50.png" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="20" HeightRequest="25" />
                                 </Grid>
@@ -34,7 +37,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Grid.Row="2" Text="Huỷ thao tác" Command="{Binding CancelCommand}" IsVisible="{Binding SelectMode}" Style="{StaticResource HightButtonStyle}"/>
+            <Button Grid.Row="2" Text="Huỷ thao tác" Command="{Binding CancelCommand}" IsVisible="{Binding SelectMode}" Style="{StaticResource HightButtonStyle}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

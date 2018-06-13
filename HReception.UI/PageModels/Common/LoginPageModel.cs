@@ -37,18 +37,16 @@ namespace HReception.UI.PageModels.Common
         /// <summary>
         /// Gets the LoginCommand command.
         /// </summary>
-        public ICommand LoginCommand => _loginCommand ?? (_loginCommand = new Command(async () => { await LoginCommandExecute(); }, CanExecuteLoginCommand));
-
-        private bool CanExecuteLoginCommand()
-        {
-            return !UserName.IsNullOrEmpty() && !Password.IsNullOrEmpty() && !IsBusy;
-        }
+        public ICommand LoginCommand => _loginCommand ?? (_loginCommand = new Command(async () => { await LoginCommandExecute(); }));
 
         /// <summary>
         /// Method to invoke when the command LoginCommand is executed.
         /// </summary>
         private async Task LoginCommandExecute()
         {
+            if (UserName.IsNullOrEmpty() || Password.IsNullOrEmpty() || IsBusy)
+                return;
+
             try
             {
                 IsBusy = true;
