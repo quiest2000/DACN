@@ -96,6 +96,16 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable\EmptyTextFile.txt" />
+    <AndroidResource Include="Resources\drawable\add32.png" />
+    <AndroidResource Include="Resources\drawable\check32.png" />
+    <AndroidResource Include="Resources\drawable\checklist30.png" />
+    <AndroidResource Include="Resources\drawable\home32.png" />
+    <AndroidResource Include="Resources\drawable\mainbg.jpg" />
+    <AndroidResource Include="Resources\drawable\more50.png" />
+    <AndroidResource Include="Resources\drawable\search32.png" />
+    <AndroidResource Include="Resources\drawable\tab_about.png" />
+    <AndroidResource Include="Resources\drawable\tab_feed.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
