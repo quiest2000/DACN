@@ -6,7 +6,6 @@ using HReception.Logic.Constants;
 using HReception.UI.PageModels.Common;
 using HReception.UI.Utils;
 using HReception.UI.Utils.Extensions;
-using HReception.Logic.Mapping;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace HReception.UI
@@ -17,7 +16,7 @@ namespace HReception.UI
         {
             InitializeComponent();
             Bootstrap.Register();
-            MappingConfig.Config();
+            //MappingConfig.Config();
             NavigationExtensions.GoToLoginPage();
         }
     }
