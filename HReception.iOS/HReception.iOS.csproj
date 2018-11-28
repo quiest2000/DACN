@@ -117,14 +117,8 @@
       <Visible>false</Visible>
     </ImageAsset>
     <BundleResource Include="Resources\tab_about.png" />
-    <BundleResource Include="Resources\tab_about%402x.png" />
-    <BundleResource Include="Resources\tab_about%403x.png" />
     <BundleResource Include="Resources\tab_feed.png" />
-    <BundleResource Include="Resources\tab_feed%402x.png" />
-    <BundleResource Include="Resources\tab_feed%403x.png" />
     <BundleResource Include="Resources\xamarin_logo.png" />
-    <BundleResource Include="Resources\xamarin_logo%402x.png" />
-    <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <BundleResource Include="Resources\more50.png" />
     <BundleResource Include="Resources\checklist30.png" />
@@ -231,11 +225,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HReception.UI\HReception.UI.csproj">
-      <Project>{5DE9C92E-A6D9-451D-A96D-D9809E5CCFDD}</Project>
+      <Project>{C02D4598-FB9B-49EC-B83E-997D48487A40}</Project>
       <Name>HReception.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\HReception.Logic\HReception.Logic.csproj">
-      <Project>{8E39B5E6-6054-44ED-A6E1-300FE2074E7B}</Project>
+      <Project>{A6BA6B75-9781-4E54-B468-2B2DFA7EB58B}</Project>
       <Name>HReception.Logic</Name>
     </ProjectReference>
   </ItemGroup>
