@@ -5,7 +5,7 @@
 .vs/HReception/xs/UserPrefs.xml
 _BundleResourceWithLogicalName.items
 _PartialAppManifest.items
-*g.cs
+*.g.cs
 */bin/*
 UserPrefs.xml
 HReception.iOS/obj
